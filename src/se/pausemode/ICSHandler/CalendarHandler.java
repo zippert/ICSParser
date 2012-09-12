@@ -16,10 +16,10 @@ public class CalendarHandler {
     public CalendarHandler(File f){
         ArrayList<String> list = loadFile(f);
         ArrayList<String> foldedList = unfold(list);
-        mapify(filterList(foldedList, "VEVENT", true));
+        mapify(filterList(foldedList, "VEVENT"));
     }
 
-    private ArrayList<String> filterList(ArrayList<String> completeFoldedList, String filterTag, boolean ignoreNestedTags) {
+    private ArrayList<String> filterList(ArrayList<String> completeFoldedList, String filterTag) {
         ArrayList<String> retVal = new ArrayList<String>();
         boolean startSave = false;
         boolean pauseSave = false;
@@ -54,7 +54,7 @@ public class CalendarHandler {
         int delim;
         map = new HashMap<String, String>();
         for(String s:list){
-            delim = s.indexOf(";") == -1 ? s.indexOf(":") : Math.min(s.indexOf(";"), s.indexOf(":"));
+            delim = !s.contains(";") ? s.indexOf(":") : Math.min(s.indexOf(";"), s.indexOf(":"));
             key = s.substring(0,delim);
             value = s.substring(delim+1);
             map.put(key, value);
@@ -149,12 +149,34 @@ public class CalendarHandler {
             //ATTACH;FMTTYPE=text/plain;ENCODING=BASE64;VALUE=BINARY:VGhlIH
             //F1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4
             retVal.setATTACH(parseAttachData(map.get("ATTACH")));
-            //ATTENDEE;ROLE=REQ-PARTICIPANT;DELEGATED-FROM="mailto:bob@
+            //ATTENDEE;ROLE_TYPES=REQ-PARTICIPANT;DELEGATED-FROM="mailto:bob@
             //example.com";PARTSTAT=ACCEPTED;CN=Jane Doe:mailto:jdoe@
             //example.com
             retVal.setATTENDEE(parseAttendeeData(map.get("ATTENDEE")));
+            //CATEGORIES:APPOINTMENT,EDUCATION
+            retVal.setCATEGORIES(parseCategoriesData(map.get("CATEGORIES")));
         }
 
+        return retVal;
+    }
+
+    private StringData parseCategoriesData(String categoriesString) {
+        StringData retVal = null;
+        if(categoriesString != null){
+            retVal = new StringData();
+            String[] parseData = categoriesString.split(":");
+            if(parseData.length > 1){
+                retVal.setString(parseData[1]);
+                for(String s:parseData[0].split(";")){
+                    if(s.startsWith("LANGUAGE")){
+                        retVal.setLanguage(s.substring(s.indexOf("=")+1));
+                    }
+                }
+            } else {
+                retVal.setString(parseData[0]);
+            }
+
+        }
         return retVal;
     }
 
@@ -162,10 +184,55 @@ public class CalendarHandler {
         AttendeeData retVal = null;
 
         if(attendeeString != null){
-
+            retVal = new AttendeeData();
+            String mailTo = null;
+            if(attendeeString.contains(":mailto:")){
+                mailTo = ":mailto:";
+            } else if(attendeeString.contains(":MAILTO:")) {
+                mailTo = ":MAILTO:";
+            }
+            int indexOfCalAddress = attendeeString.lastIndexOf(mailTo);
+            String[] arr = attendeeString.substring(0,indexOfCalAddress).split(";");
+            retVal.setURI(attendeeString.split(mailTo)[1]);
+            for(String s:arr){
+                if(s.startsWith("CUTYPE=")){
+                    retVal.setCUTYPE(AttendeeData.CUTYPE_TYPES.valueOf(s.substring(s.indexOf("=") + 1)));
+                } else if(s.startsWith("MEMBER=")){
+                    retVal.setMEMBER(parsePeopleData(s.substring(s.indexOf("=")+1)));
+                } else if(s.startsWith("ROLE_TYPES=")){
+                    retVal.setROLE(AttendeeData.ROLE_TYPES.getEnum(s.substring(s.indexOf("=")+1)));
+                } else if(s.startsWith("PARTSTAT=")){
+                    retVal.setPARTSTAT(AttendeeData.PARTSTAT_TYPE.getEnum(s.substring(s.indexOf("=")+1)));
+                } else if(s.startsWith("RSVP=")){
+                    retVal.setRSVP(Boolean.parseBoolean(s.substring(s.indexOf("=")+1)));
+                } else if(s.startsWith("DELEGATED-TO=")){
+                    retVal.setDELEGATED_TO(parsePeopleData(s.substring(s.indexOf("=") + 1)));
+                } else if(s.startsWith("DELEGATED-FROM=")){
+                    retVal.setDELEGATED_FROM(parsePeopleData(s.substring(s.indexOf("=")+1)));
+                } else if(s.startsWith("SENT-BY=")){
+                    retVal.setSENT_BY(parsePeopleData(s.substring(s.indexOf("=") +1)));
+                } else if(s.startsWith("CN=")){
+                    retVal.setCN(s.substring(s.indexOf("=")+1).replace("\"",""));
+                } else if(s.startsWith("DIR=")){
+                    retVal.setDIR(s.substring(s.indexOf("=")+1).replace("\"",""));
+                } else if(s.startsWith("LANGUAGE=")){
+                    retVal.setLANGUAGE(s.substring(s.indexOf("=")+1));
+                }
+            }
         }
 
         return retVal;
+    }
+
+    private PeopleData parsePeopleData(String peopleDataString){
+        PeopleData pd = new PeopleData();
+        String[] members = peopleDataString.split(",");
+        for(int i = 0; i < members.length; i++){
+            //Remove trailing/ending "
+            members[i] = members[i].substring(1,members[i].length()-1);
+        }
+        pd.setMembers(members);
+        return pd;
     }
 
     private AttachData parseAttachData(String attachString) {
@@ -287,8 +354,9 @@ public class CalendarHandler {
         StringData retVal = null;
         if(stringData != null){
             retVal = new StringData();
-            retVal.setString(stringData.split(":")[1]);
-            for(String s:stringData.split(":")[0].split(";")){
+            String[] parseData = stringData.split(":");
+            retVal.setString(parseData[1]);
+            for(String s:parseData[0].split(";")){
                 if(s.startsWith("LANGUAGE")){
                     retVal.setLanguage(s.substring(s.indexOf("=")+1));
                 }
@@ -303,7 +371,6 @@ public class CalendarHandler {
             retVal = new DateData();
             int indexOfColon = dateDataString.lastIndexOf(":");
             retVal.setValue(dateDataString.split(":")[1]);
-            String value = dateDataString.substring(indexOfColon);
             for(String s: dateDataString.substring(0,indexOfColon).split(";")){
                 if(s.startsWith("VALUE")){
                     retVal.setValue_type(RecurrenceID.VALUE_TYPE.getEnum(s.split("=")[1]));

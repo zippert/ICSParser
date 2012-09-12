@@ -32,8 +32,7 @@ public class Calendar {
     /** Optional **/
     private AttachData ATTACH;
     private AttendeeData ATTENDEE;
-
-
+    private StringData CATEGORIES;
 
     public enum EventStatus{
         TENTATIVE,
@@ -68,7 +67,8 @@ public class Calendar {
                 "DTEND: " + this.getDTEND() + "\n" +
                 "DURATION: " + this.getDURATION() + "\n" +
                 "ATTACH: " + this.getATTACH() + "\n" +
-                "ATTENDEE: " + this.getATTENDEE();
+                "ATTENDEE: " + this.getATTENDEE() + "\n" +
+                "CATEGORIES: " + this.getCATEGORIES() + "\n";
     }
 
 
@@ -241,5 +241,13 @@ public class Calendar {
 
     public void setATTENDEE(AttendeeData ATTENDEE) {
         this.ATTENDEE = ATTENDEE;
+    }
+
+    public StringData getCATEGORIES() {
+        return CATEGORIES;
+    }
+
+    public void setCATEGORIES(StringData CATEGORIES) {
+        this.CATEGORIES = CATEGORIES;
     }
 }

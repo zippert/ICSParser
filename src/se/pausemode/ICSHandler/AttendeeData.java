@@ -4,8 +4,8 @@ package se.pausemode.ICSHandler;
 public class AttendeeData {
 
     private PeopleData MEMBER;
-    private ROLE ROLE;
-    private PARTSTAT PARTSTAT;
+    private ROLE_TYPES ROLE;
+    private PARTSTAT_TYPE PARTSTAT;
     private Boolean RSVP;
     private PeopleData DELEGATED_TO;
     private PeopleData DELEGATED_FROM;
@@ -13,8 +13,12 @@ public class AttendeeData {
     private String CN;
     private String DIR;
     private String LANGUAGE;
+    private String URI;
+    private String CALADDRESS;
+    private CUTYPE_TYPES CUTYPE;
 
-    public enum CUTYPE{
+
+    public enum CUTYPE_TYPES{
         INDIVIDUAL,
         GROUP,
         RESOURCE,
@@ -22,16 +26,16 @@ public class AttendeeData {
         UNKNOWN
     }
 
-    public enum ROLE{
+    public enum ROLE_TYPES {
         CHAIR,
         REQ_PARTICIPANT,
         OPT_PARTICIPANT,
         NON_PARTICIPANT;
 
-        public static ROLE getEnum(String value){
-            ROLE retVal = null;
+        public static ROLE_TYPES getEnum(String value){
+            ROLE_TYPES retVal = null;
             if(value != null){
-                if(value.equals(CHAIR)){
+                if(value.equals("CHAIR")){
                     return CHAIR;
                 } else if(value.equals("REQ-PARTICIPANT")){
                     return REQ_PARTICIPANT;
@@ -47,15 +51,15 @@ public class AttendeeData {
         }
     }
 
-    public enum PARTSTAT{
+    public enum PARTSTAT_TYPE{
         NEEDS_ACTION,
         ACCEPTED,
         DECLINED,
         TENTATIVE,
         DELEGATED;
 
-        public static PARTSTAT getEnum(String value){
-            PARTSTAT retVal = null;
+        public static PARTSTAT_TYPE getEnum(String value){
+            PARTSTAT_TYPE retVal = null;
             if(value != null){
                 if(value.equals("NEEDS-ACTION")){
                     return NEEDS_ACTION;
@@ -75,8 +79,7 @@ public class AttendeeData {
         }
     }
 
-    private String CALADDRESS;
-    private CUTYPE CUTYPE;
+
 
     public String getCALADDRESS() {
         return CALADDRESS;
@@ -86,11 +89,11 @@ public class AttendeeData {
         this.CALADDRESS = CALADDRESS;
     }
 
-    public AttendeeData.CUTYPE getCUTYPE() {
+    public CUTYPE_TYPES getCUTYPE() {
         return CUTYPE;
     }
 
-    public void setCUTYPE(AttendeeData.CUTYPE CUTYPE) {
+    public void setCUTYPE(CUTYPE_TYPES CUTYPE) {
         this.CUTYPE = CUTYPE;
     }
 
@@ -102,19 +105,19 @@ public class AttendeeData {
         this.MEMBER = MEMBER;
     }
 
-    public AttendeeData.ROLE getROLE() {
+    public ROLE_TYPES getROLE() {
         return ROLE;
     }
 
-    public void setROLE(AttendeeData.ROLE ROLE) {
-        this.ROLE = ROLE;
+    public void setROLE(ROLE_TYPES ROLE_TYPES) {
+        this.ROLE = ROLE_TYPES;
     }
 
-    public AttendeeData.PARTSTAT getPARTSTAT() {
+    public PARTSTAT_TYPE getPARTSTAT() {
         return PARTSTAT;
     }
 
-    public void setPARTSTAT(AttendeeData.PARTSTAT PARTSTAT) {
+    public void setPARTSTAT(PARTSTAT_TYPE PARTSTAT) {
         this.PARTSTAT = PARTSTAT;
     }
 
@@ -174,12 +177,19 @@ public class AttendeeData {
         this.LANGUAGE = LANGUAGE;
     }
 
+    public String getURI() {
+        return URI;
+    }
+
+    public void setURI(String URI) {
+        this.URI = URI;
+    }
 
     public String toString(){
         return "CALADDRESS: " + CALADDRESS + ", " +
                 "CUTYPE: " + CUTYPE + ", " +
                 "MEMBER: " + MEMBER + ", " +
-                "ROLE: " + ROLE + ", " +
+                "ROLE_TYPES: " + ROLE + ", " +
                 "PARTSTAT: " + PARTSTAT + ", " +
                 "RSVP: " + RSVP + ", " +
                 "DELEGATED-TO: " + DELEGATED_TO + ", " +
@@ -187,23 +197,10 @@ public class AttendeeData {
                 "SENT-BY: " + SENT_BY + ", " +
                 "CN: " + CN + ", " +
                 "DIR: " + DIR + ", " +
-                "LANGUAGE: " + LANGUAGE;
+                "LANGUAGE: " + LANGUAGE + ", " +
+                "URI: " + URI;
 
     }
 
 
-    class PeopleData {
-        public String[] members;
-
-        public String toString(){
-            StringBuffer sb = new StringBuffer();
-            sb.append("[");
-            for(String s: members){
-                sb.append("("+ s + ")");
-            }
-            sb.append("]");
-
-            return "Members: " + sb.toString();
-        }
-    }
 }
