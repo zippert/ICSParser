@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="229cc0bd-c316-4353-adc5-c8d896906f9d" name="Default" comment="Added ATTENDEE and CATEGORIES data">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/PeopleData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="229cc0bd-c316-4353-adc5-c8d896906f9d" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\out\production\ICSParser\se\pausemode\ICSHandler\AttendeeData$CUTYPE.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\out\production\ICSParser\se\pausemode\ICSHandler\AttendeeData$PARTSTAT.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\out\production\ICSParser\se\pausemode\ICSHandler\AttendeeData$PeopleData.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\out\production\ICSParser\se\pausemode\ICSHandler\AttendeeData$ROLE.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/AttendeeData.class" afterPath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/AttendeeData.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/Calendar$EventStatus.class" afterPath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/Calendar$EventStatus.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/Calendar$Transparency.class" afterPath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/Calendar$Transparency.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/Calendar.class" afterPath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/Calendar.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/CalendarHandler.class" afterPath="$PROJECT_DIR$/out/production/ICSParser/se/pausemode/ICSHandler/CalendarHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/AttendeeData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/AttendeeData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" />
     </list>
     <ignored path="ICSParser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -514,11 +518,16 @@
       <created>1345201268778</created>
       <updated>1345201268778</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added ATTENDEE and CATEGORIES data">
+      <created>1347441950746</created>
+      <updated>1347441950746</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="840" y="0" width="840" height="1010" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -526,10 +535,10 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282353" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3635294" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.49548388" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.49548388" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
