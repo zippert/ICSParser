@@ -155,6 +155,47 @@ public class CalendarHandler {
             retVal.setATTENDEE(parseAttendeeData(map.get("ATTENDEE")));
             //CATEGORIES:APPOINTMENT,EDUCATION
             retVal.setCATEGORIES(parseCategoriesData(map.get("CATEGORIES")));
+            //COMMENT:Hej hopp vad kul!
+            retVal.setCOMMENT(parseStringData(map.get("COMMENT")));
+            //CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
+            //c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
+            //+1-919-555-1234
+            retVal.setCONTACT(parseStringData(map.get("CONTACT")));
+            //EXDATE:19960402T010000Z,19960403T010000Z,19960404T010000Z
+            retVal.setEXDATE(parseDateData(map.get("EXDATE")));
+            //REQUEST-STATUS:2.8; Success\, repeating event ignored. Scheduled
+            //as a single event.;RRULE:FREQ=WEEKLY\;INTERVAL=2
+            retVal.setREQUESTSTATUS(parseRequestStatusData(map.get("REQUEST-STATUS")));
+        }
+
+        return retVal;
+    }
+
+    private RequestStatusData parseRequestStatusData(String requestStatusString) {
+        RequestStatusData retVal = null;
+        if(requestStatusString != null){
+            retVal = new RequestStatusData();
+            int trackIndex = 0;
+            if(!Character.isDigit(requestStatusString.charAt(0))){
+                //Handle optional (Language) strings
+                for(String arg : requestStatusString.substring(0,requestStatusString.indexOf(":")).split(";")){
+                    if(arg.startsWith("LANGUAGE=")){
+                        retVal.setLanguage(arg.substring(arg.indexOf("=")+1));
+                    }
+                }
+                trackIndex = requestStatusString.indexOf(":") + 1;
+            }
+            retVal.setStatCode(requestStatusString.substring(trackIndex, requestStatusString.indexOf(";", trackIndex)));
+            trackIndex = requestStatusString.indexOf(";", trackIndex) + 1;
+
+            if(requestStatusString.indexOf(";", trackIndex) == -1){
+                retVal.setStatDesc(requestStatusString.substring(trackIndex));
+            } else {
+                retVal.setStatDesc(requestStatusString.substring(trackIndex,requestStatusString.indexOf(";",trackIndex)));
+                trackIndex = requestStatusString.indexOf(";",trackIndex);
+                retVal.setExtData(requestStatusString.substring(requestStatusString.indexOf(";", trackIndex) + 1));
+            }
+
         }
 
         return retVal;
@@ -354,13 +395,20 @@ public class CalendarHandler {
         StringData retVal = null;
         if(stringData != null){
             retVal = new StringData();
-            String[] parseData = stringData.split(":");
-            retVal.setString(parseData[1]);
-            for(String s:parseData[0].split(";")){
-                if(s.startsWith("LANGUAGE")){
-                    retVal.setLanguage(s.substring(s.indexOf("=")+1));
+            int valueSeparator = stringData.lastIndexOf(":");
+            if(valueSeparator != 0){
+                retVal.setString(stringData.substring(valueSeparator+1));
+                for(String s:stringData.substring(0,valueSeparator).split(";")){
+                    if(s.startsWith("LANGUAGE=")){
+                        retVal.setLanguage(s.substring(s.indexOf("=")+1));
+                    } else if(s.startsWith("ALTREP=")){
+                        retVal.setAltrep(s.substring(s.indexOf("=")+1).replace("\"",""));
+                    }
                 }
+            } else {
+                retVal.setString(stringData);
             }
+
         }
         return retVal;
     }
@@ -370,13 +418,17 @@ public class CalendarHandler {
         if(dateDataString != null){
             retVal = new DateData();
             int indexOfColon = dateDataString.lastIndexOf(":");
-            retVal.setValue(dateDataString.split(":")[1]);
-            for(String s: dateDataString.substring(0,indexOfColon).split(";")){
-                if(s.startsWith("VALUE")){
-                    retVal.setValue_type(RecurrenceID.VALUE_TYPE.getEnum(s.split("=")[1]));
-                } else if(s.startsWith("TZID")){
-                    retVal.setTZID(s.split("=")[1]);
+            if(indexOfColon > 0){
+                retVal.setValue(dateDataString.substring(indexOfColon+1));
+                for(String s: dateDataString.substring(0,indexOfColon).split(";")){
+                    if(s.startsWith("VALUE")){
+                        retVal.setValue_type(RecurrenceID.VALUE_TYPE.getEnum(s.split("=")[1]));
+                    } else if(s.startsWith("TZID")){
+                        retVal.setTZID(s.split("=")[1]);
+                    }
                 }
+            } else {
+               retVal.setValue(dateDataString);
             }
         }
         return retVal;

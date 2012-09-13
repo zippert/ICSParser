@@ -7,6 +7,7 @@ package se.pausemode.ICSHandler;
 public class StringData {
     private String string;
     private String language;
+    private String altrep;
 
     public String getString() {
         return string;
@@ -25,6 +26,14 @@ public class StringData {
     }
 
     public String toString(){
-        return "Value: " + this.string + ", Language: " + this.language;
+        return "Value: " + this.string + ", Language: " + this.language + ", AltRep: " + this.altrep;
+    }
+
+    public String getAltrep() {
+        return altrep;
+    }
+
+    public void setAltrep(String altrep) {
+        this.altrep = altrep;
     }
 }

@@ -33,6 +33,10 @@ public class Calendar {
     private AttachData ATTACH;
     private AttendeeData ATTENDEE;
     private StringData CATEGORIES;
+    private StringData COMMENT;
+    private StringData CONTACT;
+    private DateData EXDATE;
+    private RequestStatusData REQUESTSTATUS;
 
     public enum EventStatus{
         TENTATIVE,
@@ -68,7 +72,11 @@ public class Calendar {
                 "DURATION: " + this.getDURATION() + "\n" +
                 "ATTACH: " + this.getATTACH() + "\n" +
                 "ATTENDEE: " + this.getATTENDEE() + "\n" +
-                "CATEGORIES: " + this.getCATEGORIES() + "\n";
+                "CATEGORIES: " + this.getCATEGORIES() + "\n" +
+                "COMMENT: " + this.getCOMMENT() + "\n" +
+                "CONTACT: " + this.getCONTACT() + "\n" +
+                "EXDATE: " + this.getEXDATE() + "\n" +
+                "REQUEST-STATUS: " + this.getREQUESTSTATUS();
     }
 
 
@@ -250,4 +258,37 @@ public class Calendar {
     public void setCATEGORIES(StringData CATEGORIES) {
         this.CATEGORIES = CATEGORIES;
     }
+
+    public StringData getCOMMENT() {
+        return COMMENT;
+    }
+
+    public void setCOMMENT(StringData COMMENT) {
+        this.COMMENT = COMMENT;
+    }
+
+    public StringData getCONTACT() {
+        return CONTACT;
+    }
+
+    public void setCONTACT(StringData CONTACT) {
+        this.CONTACT = CONTACT;
+    }
+
+    public DateData getEXDATE() {
+        return EXDATE;
+    }
+
+    public void setEXDATE(DateData EXDATE) {
+        this.EXDATE = EXDATE;
+    }
+
+    public RequestStatusData getREQUESTSTATUS() {
+        return REQUESTSTATUS;
+    }
+
+    public void setREQUESTSTATUS(RequestStatusData REQUESTSTATUS) {
+        this.REQUESTSTATUS = REQUESTSTATUS;
+    }
+
 }
