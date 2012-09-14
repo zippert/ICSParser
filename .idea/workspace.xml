@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="229cc0bd-c316-4353-adc5-c8d896906f9d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RelatedToData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/AttachData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/AttachData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/AttendeeData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/AttendeeData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DateData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DateData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DurationData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DurationData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Organizer.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Organizer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/PeopleData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/PeopleData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Position.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Position.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RecurrenceRule.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RecurrenceRule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RequestStatusData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RequestStatusData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/StringData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/StringData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/WeekDayNum.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/WeekDayNum.java" />
     </list>
     <ignored path="ICSParser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,7 +22,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" line="182" class="se.pausemode.ICSHandler.CalendarHandler" package="se.pausemode.ICSHandler">
+      <breakpoint url="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" line="184" class="se.pausemode.ICSHandler.CalendarHandler" package="se.pausemode.ICSHandler">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -101,12 +88,21 @@
       <file leaf-file-name="CalendarHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="182" column="0" selection-start="7272" selection-end="7272" vertical-scroll-proportion="0.27623457">
+            <state line="421" column="34" selection-start="18635" selection-end="18635" vertical-scroll-proportion="0.27786753">
               <folding>
                 <element signature="e#656#664#0" expanded="true" />
                 <element signature="e#1999#2007#0" expanded="true" />
-                <element signature="e#22143#22151#0" expanded="true" />
+                <element signature="e#22276#22284#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/StringData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="18" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -114,7 +110,7 @@
       <file leaf-file-name="Calendar.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="44" selection-start="2583" selection-end="2583" vertical-scroll-proportion="0.0">
+            <state line="84" column="44" selection-start="2663" selection-end="2663" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -154,10 +150,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1026" />
+    <option name="x" value="840" />
+    <option name="width" value="840" />
+    <option name="height" value="1010" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -478,8 +473,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="false" />
+    <frame x="840" y="0" width="840" height="1010" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -495,8 +490,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.636129" sideWeight="0.77882355" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22055428" sideWeight="0.9972401" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4812903" sideWeight="0.7752941" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22470587" sideWeight="0.9972401" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -638,23 +633,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/StringData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="18" selection-start="597" selection-end="597" vertical-scroll-proportion="0.41102362">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/WeekDayNum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="18" selection-start="498" selection-end="498" vertical-scroll-proportion="0.6425197">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="44" selection-start="2583" selection-end="2583" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -666,13 +647,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/StringData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="18" selection-start="597" selection-end="597" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="44" selection-start="2663" selection-end="2663" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="0" selection-start="7272" selection-end="7272" vertical-scroll-proportion="0.27623457">
+        <state line="421" column="34" selection-start="18635" selection-end="18635" vertical-scroll-proportion="0.27786753">
           <folding>
             <element signature="e#656#664#0" expanded="true" />
             <element signature="e#1999#2007#0" expanded="true" />
-            <element signature="e#22143#22151#0" expanded="true" />
+            <element signature="e#22276#22284#0" expanded="true" />
           </folding>
         </state>
       </provider>

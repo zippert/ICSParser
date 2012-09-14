@@ -38,7 +38,7 @@ public class Calendar {
     private DateData EXDATE;
     private RequestStatusData REQUESTSTATUS;
     private RelatedToData RELATEDTO;
-
+    private StringData RESOURCES;
 
 
     public enum EventStatus{
@@ -82,6 +82,7 @@ public class Calendar {
                 ", \nEXDATE=" + EXDATE +
                 ", \nREQUESTSTATUS=" + REQUESTSTATUS +
                 ", \nRELATEDTO=" + RELATEDTO +
+                ", \nRESOURCES=" + RESOURCES +
                 '}';
     }
 
@@ -304,4 +305,14 @@ public class Calendar {
     public void setRELATEDTO(RelatedToData RELATEDTO) {
         this.RELATEDTO = RELATEDTO;
     }
+
+    public StringData getRESOURCES() {
+        return RESOURCES;
+    }
+
+    public void setRESOURCES(StringData RESOURCES) {
+        this.RESOURCES = RESOURCES;
+    }
+
+
 }

@@ -168,6 +168,8 @@ public class CalendarHandler {
             retVal.setREQUESTSTATUS(parseRequestStatusData(map.get("REQUEST-STATUS")));
             //RELATED-TO:jsmith.part7.19960817T083000.xyzMail@example.com
             retVal.setRELATEDTO(parseRelatedToData(map.get("RELATED-TO")));
+            //RESOURCES;LANGUAGE=fr:Nettoyeur haute pression
+            retVal.setRESOURCES(parseStringData(map.get("RESOURCES")));
         }
 
         return retVal;
@@ -417,7 +419,7 @@ public class CalendarHandler {
         if(stringData != null){
             retVal = new StringData();
             int valueSeparator = stringData.lastIndexOf(":");
-            if(valueSeparator != 0){
+            if(valueSeparator > -1){
                 retVal.setString(stringData.substring(valueSeparator+1));
                 for(String s:stringData.substring(0,valueSeparator).split(";")){
                     if(s.startsWith("LANGUAGE=")){
