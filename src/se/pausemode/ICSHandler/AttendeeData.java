@@ -185,21 +185,23 @@ public class AttendeeData {
         this.URI = URI;
     }
 
-    public String toString(){
-        return "CALADDRESS: " + CALADDRESS + ", " +
-                "CUTYPE: " + CUTYPE + ", " +
-                "MEMBER: " + MEMBER + ", " +
-                "ROLE_TYPES: " + ROLE + ", " +
-                "PARTSTAT: " + PARTSTAT + ", " +
-                "RSVP: " + RSVP + ", " +
-                "DELEGATED-TO: " + DELEGATED_TO + ", " +
-                "DELEGATED-FROM: " + DELEGATED_FROM + ", " +
-                "SENT-BY: " + SENT_BY + ", " +
-                "CN: " + CN + ", " +
-                "DIR: " + DIR + ", " +
-                "LANGUAGE: " + LANGUAGE + ", " +
-                "URI: " + URI;
-
+    @Override
+    public String toString() {
+        return "AttendeeData{" +
+                "MEMBER=" + MEMBER +
+                ", ROLE=" + ROLE +
+                ", PARTSTAT=" + PARTSTAT +
+                ", RSVP=" + RSVP +
+                ", DELEGATED_TO=" + DELEGATED_TO +
+                ", DELEGATED_FROM=" + DELEGATED_FROM +
+                ", SENT_BY=" + SENT_BY +
+                ", CN='" + CN + '\'' +
+                ", DIR='" + DIR + '\'' +
+                ", LANGUAGE='" + LANGUAGE + '\'' +
+                ", URI='" + URI + '\'' +
+                ", CALADDRESS='" + CALADDRESS + '\'' +
+                ", CUTYPE=" + CUTYPE +
+                '}';
     }
 
 

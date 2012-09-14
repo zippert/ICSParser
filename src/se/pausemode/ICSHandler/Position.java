@@ -26,7 +26,11 @@ public class Position {
         this.longitude = longitude;
     }
 
-    public String toString(){
-        return "(lat,long): ("+latitude+","+longitude+")";
+    @Override
+    public String toString() {
+        return "Position{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 }

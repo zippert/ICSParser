@@ -37,6 +37,9 @@ public class Calendar {
     private StringData CONTACT;
     private DateData EXDATE;
     private RequestStatusData REQUESTSTATUS;
+    private RelatedToData RELATEDTO;
+
+
 
     public enum EventStatus{
         TENTATIVE,
@@ -49,34 +52,37 @@ public class Calendar {
         TRANSPARENT
     }
 
-    public String toString(){
-        return "DTSTAMP: " + this.getDTSTAMP() + "\n" +
-                "DTSTART: " + this.getDTSTART() + "\n" +
-
-                "CLASS: " + this.getCLASS() + "\n" +
-                "CREATED: " + this.getCREATED() + "\n" +
-                "DESCRIPTION: " + this.getDESCRIPTION() + "\n" +
-                "GEO: " + this.getGEO() + "\n" +
-                "LAST-MODIFIED: " + this.getLASTMODIFIED() + "\n" +
-                "LOCATION: " + this.getLOCATION() + "\n" +
-                "ORGANIZER: " + this.getORGANIZER() + "\n" +
-                "PRIORITY: " + this.getPRIORITY() + "\n" +
-                "SEQUENCE: " + this.getSEQUENCE() + "\n" +
-                "STATUS: " + this.getSTATUS() + "\n" +
-                "SUMMARY: " + this.getSUMMARY() + "\n" +
-                "TRANSP: " + this.getTRANSP() + "\n" +
-                "URL: " + this.getURL() + "\n" +
-                "RECURRENCE-ID: " + this.getRECURRENCEID() + "\n" +
-                "RECURRENCERULE: " + this.getRECURRENCERULE() + "\n" +
-                "DTEND: " + this.getDTEND() + "\n" +
-                "DURATION: " + this.getDURATION() + "\n" +
-                "ATTACH: " + this.getATTACH() + "\n" +
-                "ATTENDEE: " + this.getATTENDEE() + "\n" +
-                "CATEGORIES: " + this.getCATEGORIES() + "\n" +
-                "COMMENT: " + this.getCOMMENT() + "\n" +
-                "CONTACT: " + this.getCONTACT() + "\n" +
-                "EXDATE: " + this.getEXDATE() + "\n" +
-                "REQUEST-STATUS: " + this.getREQUESTSTATUS();
+    @Override
+    public String toString() {
+        return "Calendar{" +
+                "\nDTSTAMP='" + DTSTAMP + '\'' +
+                ", \nDTSTART=" + DTSTART +
+                ", \nCLASS='" + CLASS + '\'' +
+                ", \nCREATED='" + CREATED + '\'' +
+                ", \nDESCRIPTION=" + DESCRIPTION +
+                ", \nORGANIZER=" + ORGANIZER +
+                ", \nGEO=" + GEO +
+                ", \nLASTMODIFIED='" + LASTMODIFIED + '\'' +
+                ", \nLOCATION=" + LOCATION +
+                ", \nPRIORITY=" + PRIORITY +
+                ", \nSEQUENCE=" + SEQUENCE +
+                ", \nSTATUS=" + STATUS +
+                ", \nSUMMARY=" + SUMMARY +
+                ", \nTRANSP=" + TRANSP +
+                ", \nURL='" + URL + '\'' +
+                ", \nRECURRENCEID=" + RECURRENCEID +
+                ", \nRECURRENCERULE=" + RECURRENCERULE +
+                ", \nDTEND=" + DTEND +
+                ", \nDURATION=" + DURATION +
+                ", \nATTACH=" + ATTACH +
+                ", \nATTENDEE=" + ATTENDEE +
+                ", \nCATEGORIES=" + CATEGORIES +
+                ", \nCOMMENT=" + COMMENT +
+                ", \nCONTACT=" + CONTACT +
+                ", \nEXDATE=" + EXDATE +
+                ", \nREQUESTSTATUS=" + REQUESTSTATUS +
+                ", \nRELATEDTO=" + RELATEDTO +
+                '}';
     }
 
 
@@ -291,4 +297,11 @@ public class Calendar {
         this.REQUESTSTATUS = REQUESTSTATUS;
     }
 
+    public RelatedToData getRELATEDTO() {
+        return RELATEDTO;
+    }
+
+    public void setRELATEDTO(RelatedToData RELATEDTO) {
+        this.RELATEDTO = RELATEDTO;
+    }
 }

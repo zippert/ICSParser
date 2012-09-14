@@ -40,8 +40,15 @@ public class Organizer {
         this.language = language;
     }
 
-    public String toString(){
-        return "CN: " + commonName + ", DIR: " + directory + ", SENT-BY: " + sentBy + ", LANGUAGE: " + language + ", CAL-ADDRESS: " + calAddress;
+    @Override
+    public String toString() {
+        return "Organizer{" +
+                "commonName='" + commonName + '\'' +
+                ", directory='" + directory + '\'' +
+                ", sentBy='" + sentBy + '\'' +
+                ", language='" + language + '\'' +
+                ", calAddress='" + calAddress + '\'' +
+                '}';
     }
 
     public String getCalAddress() {

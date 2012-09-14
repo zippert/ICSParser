@@ -1,5 +1,7 @@
 package se.pausemode.ICSHandler;
 
+import java.util.Arrays;
+
 public class RecurrenceRule {
     public enum FREQVALUE{
         SECONDLY,
@@ -150,31 +152,24 @@ public class RecurrenceRule {
     private WEEKDAY WKST;
 
 
-    public String toString(){
-        StringBuffer sb = new StringBuffer();
-        if(BYDAY != null){
-            sb.append("[");
-            for(WeekDayNum i: BYDAY){
-                sb.append("("+i.getOccurence()+";" + i.getWeekday()+")");
-            }
-            sb.append("]");
-        } else {
-            sb.append("null");
-        }
-        return "FREQ: " + FREQ
-                + ", UNTIL: " + UNTIL
-                + ", COUNT: " + COUNT
-                + ", INTERVAL: " + INTERVAL
-                + ", BYSECOND: " + BYSECOND
-                + ", BYMINUTE: " + BYMINUTE
-                + ", BYHOUR: " + BYHOUR
-                + ", BYDAY: " + sb.toString()
-                + ", BYMONTHDAY: " + BYMONTHDAY
-                + ", BYYEARDAY: " + BYYEARDAY
-                + ", BYWEEKNO: " + BYWEEKNO
-                + ", BYMONTH: " + BYMONTH
-                + ", BYSETPOS: " + BYSETPOS
-                + ", WKST: " + WKST;
+    @Override
+    public String toString() {
+        return "RecurrenceRule{" +
+                "FREQ=" + FREQ +
+                ", UNTIL=" + UNTIL +
+                ", COUNT=" + COUNT +
+                ", INTERVAL=" + INTERVAL +
+                ", BYSECOND=" + BYSECOND +
+                ", BYMINUTE=" + BYMINUTE +
+                ", BYHOUR=" + BYHOUR +
+                ", BYDAY=" + (BYDAY == null ? null : Arrays.asList(BYDAY)) +
+                ", BYMONTHDAY=" + BYMONTHDAY +
+                ", BYYEARDAY=" + BYYEARDAY +
+                ", BYWEEKNO=" + BYWEEKNO +
+                ", BYMONTH=" + BYMONTH +
+                ", BYSETPOS=" + BYSETPOS +
+                ", WKST=" + WKST +
+                '}';
     }
 
 }

@@ -25,8 +25,13 @@ public class StringData {
         this.language = language;
     }
 
-    public String toString(){
-        return "Value: " + this.string + ", Language: " + this.language + ", AltRep: " + this.altrep;
+    @Override
+    public String toString() {
+        return "StringData{" +
+                "string='" + string + '\'' +
+                ", language='" + language + '\'' +
+                ", altrep='" + altrep + '\'' +
+                '}';
     }
 
     public String getAltrep() {

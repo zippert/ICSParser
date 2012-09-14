@@ -1,18 +1,16 @@
 package se.pausemode.ICSHandler;
 
-class PeopleData {
+import java.util.Arrays;
+
+public class PeopleData {
 
     private String[] members;
 
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for(String s: members){
-            sb.append("("+ s + ")");
-        }
-        sb.append("]");
-
-        return "Members: " + sb.toString();
+    @Override
+    public String toString() {
+        return "PeopleData{" +
+                "members=" + (members == null ? null : Arrays.asList(members)) +
+                '}';
     }
 
     public void setMembers(String[] members) {

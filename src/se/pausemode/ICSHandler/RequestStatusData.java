@@ -6,11 +6,14 @@ public class RequestStatusData {
     private String statDesc;
     private String extData;
 
-    public String toString(){
-        return "Language: " + language +
-                ", statCode: " + statCode +
-                ", statDesc: " + statDesc +
-                ", extData: " + extData;
+    @Override
+    public String toString() {
+        return "RequestStatusData{" +
+                "language='" + language + '\'' +
+                ", statCode='" + statCode + '\'' +
+                ", statDesc='" + statDesc + '\'' +
+                ", extData='" + extData + '\'' +
+                '}';
     }
 
 

@@ -38,7 +38,13 @@ public class AttachData {
         this.URI = URI;
     }
 
-    public String toString(){
-        return "FMTTYPE: " + FMTTYPE + ", ENCODING: " + ENCODING + ", VALUE: " + VALUE + ", URI: " + URI;
+    @Override
+    public String toString() {
+        return "AttachData{" +
+                "FMTTYPE='" + FMTTYPE + '\'' +
+                ", ENCODING='" + ENCODING + '\'' +
+                ", VALUE='" + VALUE + '\'' +
+                ", URI='" + URI + '\'' +
+                '}';
     }
 }

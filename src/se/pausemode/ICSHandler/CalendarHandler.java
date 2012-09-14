@@ -166,8 +166,29 @@ public class CalendarHandler {
             //REQUEST-STATUS:2.8; Success\, repeating event ignored. Scheduled
             //as a single event.;RRULE:FREQ=WEEKLY\;INTERVAL=2
             retVal.setREQUESTSTATUS(parseRequestStatusData(map.get("REQUEST-STATUS")));
+            //RELATED-TO:jsmith.part7.19960817T083000.xyzMail@example.com
+            retVal.setRELATEDTO(parseRelatedToData(map.get("RELATED-TO")));
         }
 
+        return retVal;
+    }
+
+    private RelatedToData parseRelatedToData(String relatedToString) {
+        RelatedToData retVal = null;
+
+        if(relatedToString != null){
+            retVal = new RelatedToData();
+            int indexOfColon = -1;
+            if(relatedToString.contains(":")){
+                indexOfColon = relatedToString.indexOf(":");
+                for(String arg:relatedToString.substring(0, indexOfColon).split(";")){
+                    if(arg.startsWith("RELTYPE=")){
+                        retVal.setRELTYPE(RelatedToData.RELTYPE_TYPE.valueOf(arg.substring(arg.indexOf("=")+1)));
+                    }
+                }
+            }
+            retVal.setVALUE(relatedToString.substring(indexOfColon+1));
+        }
         return retVal;
     }
 

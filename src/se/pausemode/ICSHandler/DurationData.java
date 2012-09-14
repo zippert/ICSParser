@@ -31,7 +31,12 @@ public class DurationData {
         this.second = second;
     }
 
-    public String toString(){
-        return "H: " + hour + ", M: " + minute + ", S: " + second;
+    @Override
+    public String toString() {
+        return "DurationData{" +
+                "hour=" + hour +
+                ", minute=" + minute +
+                ", second=" + second +
+                '}';
     }
 }

@@ -51,11 +51,13 @@ public class DateData {
         this.TZID = TZID;
     }
 
-    public String toString(){
-        return "VALUE_TYPE: " + this.value_type +
-                ", TZID: " + this.TZID +
-                ", Value: " + this.value;
-
+    @Override
+    public String toString() {
+        return "DateData{" +
+                "value_type=" + value_type +
+                ", TZID='" + TZID + '\'' +
+                ", value='" + value + '\'' +
+                '}';
     }
 
     public String getValue() {

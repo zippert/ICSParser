@@ -21,7 +21,11 @@ public class WeekDayNum{
         this.weekday = weekday;
     }
 
-    public String toString(){
-        return "Occurence: "+occurence + ", weekday: "+weekday;
+    @Override
+    public String toString() {
+        return "WeekDayNum{" +
+                "occurence=" + occurence +
+                ", weekday=" + weekday +
+                '}';
     }
 }
