@@ -1,9 +1,11 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
-public class WeekDayNum{
+import se.pausemode.ICSHandler.DataTypes.RecurrenceRuleData;
+
+public class WeekDayNumData {
 
     private int occurence;
-    private RecurrenceRule.WEEKDAY weekday;
+    private RecurrenceRuleData.WEEKDAY weekday;
 
     public int getOccurence() {
         return occurence;
@@ -13,17 +15,17 @@ public class WeekDayNum{
         this.occurence = occurence;
     }
 
-    public RecurrenceRule.WEEKDAY getWeekday() {
+    public RecurrenceRuleData.WEEKDAY getWeekday() {
         return weekday;
     }
 
-    public void setWeekday(RecurrenceRule.WEEKDAY weekday) {
+    public void setWeekday(RecurrenceRuleData.WEEKDAY weekday) {
         this.weekday = weekday;
     }
 
     @Override
     public String toString() {
-        return "WeekDayNum{" +
+        return "WeekDayNumData{" +
                 "occurence=" + occurence +
                 ", weekday=" + weekday +
                 '}';

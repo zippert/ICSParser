@@ -1,6 +1,6 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
-public class Organizer {
+public class OrganizerData {
 
     private String commonName;
     private String directory;
@@ -42,7 +42,7 @@ public class Organizer {
 
     @Override
     public String toString() {
-        return "Organizer{" +
+        return "OrganizerData{" +
                 "commonName='" + commonName + '\'' +
                 ", directory='" + directory + '\'' +
                 ", sentBy='" + sentBy + '\'' +

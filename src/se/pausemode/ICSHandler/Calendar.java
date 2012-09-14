@@ -1,5 +1,7 @@
 package se.pausemode.ICSHandler;
 
+import se.pausemode.ICSHandler.DataTypes.*;
+
 /**
  * Class definined acording to RCF5545 (VEVENT only)
  */
@@ -12,8 +14,8 @@ public class Calendar {
     private String CLASS;
     private String CREATED;
     private StringData DESCRIPTION;
-    private Organizer ORGANIZER;
-    private Position GEO;
+    private OrganizerData ORGANIZER;
+    private PositionData GEO;
     private String LASTMODIFIED;
     private StringData LOCATION;
     private Integer PRIORITY;
@@ -22,8 +24,8 @@ public class Calendar {
     private StringData SUMMARY;
     private Transparency TRANSP;
     private String URL;
-    private RecurrenceID RECURRENCEID;
-    private RecurrenceRule RECURRENCERULE;
+    private RecurrenceIDData RECURRENCEID;
+    private RecurrenceRuleData RECURRENCERULE;
 
     /** Either DTEND *or* DURATION */
     private DateData DTEND;
@@ -39,6 +41,7 @@ public class Calendar {
     private RequestStatusData REQUESTSTATUS;
     private RelatedToData RELATEDTO;
     private StringData RESOURCES;
+    private DateData RDATE;
 
 
     public enum EventStatus{
@@ -83,6 +86,7 @@ public class Calendar {
                 ", \nREQUESTSTATUS=" + REQUESTSTATUS +
                 ", \nRELATEDTO=" + RELATEDTO +
                 ", \nRESOURCES=" + RESOURCES +
+                ", \nRDATE=" + RDATE +
                 '}';
     }
 
@@ -135,19 +139,19 @@ public class Calendar {
         this.DESCRIPTION = DESCRIPTION;
     }
 
-    public Organizer getORGANIZER() {
+    public OrganizerData getORGANIZER() {
         return ORGANIZER;
     }
 
-    public void setORGANIZER(Organizer ORGANIZER) {
-        this.ORGANIZER = ORGANIZER;
+    public void setORGANIZER(OrganizerData ORGANIZERData) {
+        this.ORGANIZER = ORGANIZERData;
     }
 
-    public Position getGEO() {
+    public PositionData getGEO() {
         return GEO;
     }
 
-    public void setGEO(Position GEO) {
+    public void setGEO(PositionData GEO) {
         this.GEO = GEO;
     }
 
@@ -218,19 +222,19 @@ public class Calendar {
         this.URL = URL;
     }
 
-    public RecurrenceID getRECURRENCEID() {
+    public RecurrenceIDData getRECURRENCEID() {
         return RECURRENCEID;
     }
 
-    public void setRECURRENCEID(RecurrenceID RECURRENCEID) {
+    public void setRECURRENCEID(RecurrenceIDData RECURRENCEID) {
         this.RECURRENCEID = RECURRENCEID;
     }
 
-    public RecurrenceRule getRECURRENCERULE() {
+    public RecurrenceRuleData getRECURRENCERULE() {
         return RECURRENCERULE;
     }
 
-    public void setRECURRENCERULE(RecurrenceRule RECURRENCERULE) {
+    public void setRECURRENCERULE(RecurrenceRuleData RECURRENCERULE) {
         this.RECURRENCERULE = RECURRENCERULE;
     }
 
@@ -314,5 +318,12 @@ public class Calendar {
         this.RESOURCES = RESOURCES;
     }
 
+    public DateData getRDATE() {
+        return RDATE;
+    }
+
+    public void setRDATE(DateData RDATE) {
+        this.RDATE = RDATE;
+    }
 
 }

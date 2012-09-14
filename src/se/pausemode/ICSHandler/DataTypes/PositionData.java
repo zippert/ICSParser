@@ -1,11 +1,11 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
-public class Position {
+public class PositionData {
 
     private float latitude;
     private float longitude;
 
-    public Position(float latitude, float longitude){
+    public PositionData(float latitude, float longitude){
         this.longitude = longitude;
         this.latitude = latitude;
     }
@@ -28,7 +28,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
+        return "PositionData{" +
                 "latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';

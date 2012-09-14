@@ -1,8 +1,8 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
 import java.util.Arrays;
 
-public class RecurrenceRule {
+public class RecurrenceRuleData {
     public enum FREQVALUE{
         SECONDLY,
         MINUTELY,
@@ -30,12 +30,13 @@ public class RecurrenceRule {
     private int[] BYSECOND;
     private int[] BYMINUTE;
     private int[] BYHOUR;
-    private WeekDayNum[] BYDAY;
+    private WeekDayNumData[] BYDAY;
     private int[] BYMONTHDAY;
     private int[] BYYEARDAY;
     private int[] BYWEEKNO;
     private int[] BYMONTH;
     private int[] BYSETPOS;
+    private WEEKDAY WKST;
 
     public FREQVALUE getFREQ() {
         return FREQ;
@@ -93,11 +94,11 @@ public class RecurrenceRule {
         this.BYHOUR = BYHOUR;
     }
 
-    public WeekDayNum[] getBYDAY() {
+    public WeekDayNumData[] getBYDAY() {
         return BYDAY;
     }
 
-    public void setBYDAY(WeekDayNum[] BYDAY) {
+    public void setBYDAY(WeekDayNumData[] BYDAY) {
         this.BYDAY = BYDAY;
     }
 
@@ -149,12 +150,12 @@ public class RecurrenceRule {
         this.WKST = WKST;
     }
 
-    private WEEKDAY WKST;
+
 
 
     @Override
     public String toString() {
-        return "RecurrenceRule{" +
+        return "RecurrenceRuleData{" +
                 "FREQ=" + FREQ +
                 ", UNTIL=" + UNTIL +
                 ", COUNT=" + COUNT +

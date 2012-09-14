@@ -1,4 +1,4 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
 import java.util.Arrays;
 

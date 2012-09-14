@@ -1,5 +1,7 @@
 package se.pausemode.ICSHandler;
 
+import se.pausemode.ICSHandler.DataTypes.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -170,6 +172,9 @@ public class CalendarHandler {
             retVal.setRELATEDTO(parseRelatedToData(map.get("RELATED-TO")));
             //RESOURCES;LANGUAGE=fr:Nettoyeur haute pression
             retVal.setRESOURCES(parseStringData(map.get("RESOURCES")));
+            //RDATE;VALUE=PERIOD:19960403T020000Z/19960403T040000Z,
+            //19960404T010000Z/PT3H
+            retVal.setRDATE(parseDateData(map.get("RDATE")));
         }
 
         return retVal;
@@ -342,13 +347,13 @@ public class CalendarHandler {
         return retVal;
     }
 
-    private RecurrenceRule parseRecurrenceRule(String recurString) {
-        RecurrenceRule retVal = null;
+    private RecurrenceRuleData parseRecurrenceRule(String recurString) {
+        RecurrenceRuleData retVal = null;
         if(recurString != null){
-            retVal = new RecurrenceRule();
+            retVal = new RecurrenceRuleData();
             for(String s: recurString.split(";")){
                 if(s.startsWith("FREQ=")){
-                    retVal.setFREQ(RecurrenceRule.FREQVALUE.valueOf(s.substring(s.indexOf("=")+1)));
+                    retVal.setFREQ(RecurrenceRuleData.FREQVALUE.valueOf(s.substring(s.indexOf("=")+1)));
                 } else if(s.startsWith("UNTIL=")){
                     retVal.setUNTIL(parseDateData(s.substring(s.indexOf("=")+1)));
                 } else if(s.startsWith("COUNT=")){
@@ -374,7 +379,7 @@ public class CalendarHandler {
                 } else if(s.startsWith("BYSETPOS=")){
                     retVal.setBYSETPOS(convertStringArrayToIntegerArray(s.substring(s.indexOf("=")+1).split(",")));
                 } else if(s.startsWith("WKST=")){
-                    retVal.setWKST(RecurrenceRule.WEEKDAY.valueOf(s.substring(s.indexOf("=") + 1)));
+                    retVal.setWKST(RecurrenceRuleData.WEEKDAY.valueOf(s.substring(s.indexOf("=") + 1)));
                 }
             }
         }
@@ -382,22 +387,22 @@ public class CalendarHandler {
         return retVal;
     }
 
-    private WeekDayNum[] parseWeekDay(String[] weekDays) {
-        WeekDayNum[] retVal = null;
+    private WeekDayNumData[] parseWeekDay(String[] weekDays) {
+        WeekDayNumData[] retVal = null;
 
         if(weekDays != null){
-            retVal = new WeekDayNum[weekDays.length];
+            retVal = new WeekDayNumData[weekDays.length];
             int i = 0;
             for(String s : weekDays){
-                WeekDayNum element = new WeekDayNum();
+                WeekDayNumData element = new WeekDayNumData();
                 if(s.length() == 4){
                     element.setOccurence(Integer.parseInt(s.substring(0,2)));
-                    element.setWeekday(RecurrenceRule.WEEKDAY.valueOf(s.substring(2)));
+                    element.setWeekday(RecurrenceRuleData.WEEKDAY.valueOf(s.substring(2)));
                 } else if(s.length() == 3){
                     element.setOccurence(Integer.parseInt(s.substring(0, 1)));
-                    element.setWeekday(RecurrenceRule.WEEKDAY.valueOf(s.substring(1)));
+                    element.setWeekday(RecurrenceRuleData.WEEKDAY.valueOf(s.substring(1)));
                 } else if(s.length() == 2){
-                    element.setWeekday(RecurrenceRule.WEEKDAY.valueOf(s));
+                    element.setWeekday(RecurrenceRuleData.WEEKDAY.valueOf(s));
                 }
                 retVal[i++] = element;
             }
@@ -445,7 +450,7 @@ public class CalendarHandler {
                 retVal.setValue(dateDataString.substring(indexOfColon+1));
                 for(String s: dateDataString.substring(0,indexOfColon).split(";")){
                     if(s.startsWith("VALUE")){
-                        retVal.setValue_type(RecurrenceID.VALUE_TYPE.getEnum(s.split("=")[1]));
+                        retVal.setValue_type(RecurrenceIDData.VALUE_TYPE.getEnum(s.split("=")[1]));
                     } else if(s.startsWith("TZID")){
                         retVal.setTZID(s.split("=")[1]);
                     }
@@ -457,33 +462,33 @@ public class CalendarHandler {
         return retVal;
     }
 
-    private RecurrenceID parseRecurrenceID(String recurrenceString) {
-        RecurrenceID recurrenceID = null;
+    private RecurrenceIDData parseRecurrenceID(String recurrenceString) {
+        RecurrenceIDData recurrenceIDData = null;
         if(recurrenceString != null){
-            recurrenceID = (RecurrenceID) parseDateData(recurrenceString);
+            recurrenceIDData = (RecurrenceIDData) parseDateData(recurrenceString);
             int indexOfColon = recurrenceString.lastIndexOf(":");
             for(String s: recurrenceString.substring(0,indexOfColon).split(";")){
                 if(s.startsWith("RANGE")){
-                    recurrenceID.setRange(RecurrenceID.RANGE.valueOf(s.split("=")[1]));
+                    recurrenceIDData.setRange(RecurrenceIDData.RANGE.valueOf(s.split("=")[1]));
                 }
             }
         }
-        return recurrenceID;
+        return recurrenceIDData;
     }
 
-    private Position parseGeo(String geoString){
-        Position pos = null;
+    private PositionData parseGeo(String geoString){
+        PositionData pos = null;
         if(geoString != null){
             String[] geo = geoString.split(";");
-            pos = new Position(Float.parseFloat(geo[0]),Float.parseFloat(geo[1]));
+            pos = new PositionData(Float.parseFloat(geo[0]),Float.parseFloat(geo[1]));
         }
         return pos;
     }
 
-    private Organizer parseOrganizer(String organizerString) {
+    private OrganizerData parseOrganizer(String organizerString) {
         //ORGANIZER;CN=JohnSmith;DIR="ldap://example.com:6666/o=DC%20Ass
         //ociates,c=US???(cn=John%20Smith)":mailto:jsmith@example.com
-       Organizer organizer = new Organizer();
+       OrganizerData organizerData = new OrganizerData();
         String mailTo = null;
         if(organizerString.contains(":mailto:")){
             mailTo = ":mailto:";
@@ -493,19 +498,19 @@ public class CalendarHandler {
 
         int indexOfCalAddress = organizerString.lastIndexOf(mailTo);
         String[] arr = organizerString.substring(0,indexOfCalAddress).split(";");
-        organizer.setCalAddress(organizerString.split(mailTo)[1]);
+        organizerData.setCalAddress(organizerString.split(mailTo)[1]);
         for(String s: arr){
             if(s.startsWith("CN")){
-                organizer.setCommonName(s.substring(s.indexOf("=") + 1));
+                organizerData.setCommonName(s.substring(s.indexOf("=") + 1));
             } else if(s.startsWith("DIR")){
-                organizer.setDirectory(s.substring(s.indexOf("=") + 1));
+                organizerData.setDirectory(s.substring(s.indexOf("=") + 1));
             } else if(s.startsWith("SENT-BY")){
-                organizer.setSentBy(s.substring(s.indexOf("=") + 1));
+                organizerData.setSentBy(s.substring(s.indexOf("=") + 1));
             } else if(s.startsWith("LANGUAGE")){
-                organizer.setLanguage(s.substring(s.indexOf("=")+1));
+                organizerData.setLanguage(s.substring(s.indexOf("=")+1));
             }
         }
-        return organizer;
+        return organizerData;
     }
 
     private ArrayList<String> unfold(ArrayList<String> source){

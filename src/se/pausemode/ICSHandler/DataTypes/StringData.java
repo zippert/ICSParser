@@ -1,4 +1,4 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
 /**
  * Class used generically to represent text data. Includes both the string as

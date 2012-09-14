@@ -1,4 +1,4 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
 
 
@@ -6,7 +6,8 @@ public class DateData {
 
     public enum VALUE_TYPE {
         DATE_TIME,
-        DATE;
+        DATE,
+        PERIOD; //Needed for RDATE
 
         /**
          * Since normal "-" is not allowed in enums, we need to create method
@@ -15,10 +16,12 @@ public class DateData {
         public static VALUE_TYPE getEnum(String value){
             VALUE_TYPE retVal = null;
             if(value != null){
-                if(value.equals(DATE)){
+                if(value.equals("DATE")){
                     return DATE;
                 } else if(value.equals("DATE-TIME")){
                     return DATE_TIME;
+                } else if(value.equals("PERIOD")){
+                    return PERIOD;
                 }
             } else {
                 throw new IllegalArgumentException();

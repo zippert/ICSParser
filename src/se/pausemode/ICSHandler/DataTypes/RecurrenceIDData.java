@@ -1,8 +1,9 @@
-package se.pausemode.ICSHandler;
+package se.pausemode.ICSHandler.DataTypes;
 
 
+import se.pausemode.ICSHandler.DataTypes.DateData;
 
-public class RecurrenceID extends DateData {
+public class RecurrenceIDData extends DateData {
 
 
     public enum RANGE {
