@@ -23,14 +23,16 @@ public class AttendeeData {
         GROUP,
         RESOURCE,
         ROOM,
-        UNKNOWN
+        UNKNOWN,
+        OTHER
     }
 
     public enum ROLE_TYPES {
         CHAIR,
         REQ_PARTICIPANT,
         OPT_PARTICIPANT,
-        NON_PARTICIPANT;
+        NON_PARTICIPANT,
+        OTHER;
 
         public static ROLE_TYPES getEnum(String value){
             ROLE_TYPES retVal = null;
@@ -41,13 +43,12 @@ public class AttendeeData {
                     return REQ_PARTICIPANT;
                 } else if(value.equals("OPT-PARTICIPANT")){
                     return OPT_PARTICIPANT;
-                } else if(value.equals("NON_PARTICIPANT")){
+                } else if(value.equals("NON-PARTICIPANT")){
                     return NON_PARTICIPANT;
                 }
-            } else {
-                throw new IllegalArgumentException();
             }
-            return retVal;
+            throw new IllegalArgumentException();
+
         }
     }
 

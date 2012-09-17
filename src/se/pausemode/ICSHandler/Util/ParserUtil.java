@@ -83,22 +83,26 @@ public class ParserUtil {
 
         if(attendeeString != null){
             retVal = new AttendeeData();
-            String mailTo = null;
-            if(attendeeString.contains(":mailto:")){
-                mailTo = ":mailto:";
-            } else if(attendeeString.contains(":MAILTO:")) {
-                mailTo = ":MAILTO:";
-            }
-            int indexOfCalAddress = attendeeString.lastIndexOf(mailTo);
-            String[] arr = attendeeString.substring(0,indexOfCalAddress).split(";");
-            retVal.setURI(attendeeString.split(mailTo)[1]);
+
+            int indexOfURI = attendeeString.toLowerCase().lastIndexOf(":mailto:");
+            String[] arr = attendeeString.substring(0,indexOfURI).split(";");
+            retVal.setURI(attendeeString.substring(indexOfURI+1));
             for(String s:arr){
                 if(s.startsWith("CUTYPE=")){
+                    try{
                     retVal.setCUTYPE(AttendeeData.CUTYPE_TYPES.valueOf(s.substring(s.indexOf("=") + 1)));
+                    } catch (IllegalArgumentException iae){
+                        retVal.setCUTYPE(AttendeeData.CUTYPE_TYPES.OTHER);
+                    }
+
                 } else if(s.startsWith("MEMBER=")){
                     retVal.setMEMBER(parsePeopleData(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("ROLE_TYPES=")){
-                    retVal.setROLE(AttendeeData.ROLE_TYPES.getEnum(s.substring(s.indexOf("=")+1)));
+                } else if(s.startsWith("ROLE=")){
+                    try{
+                        retVal.setROLE(AttendeeData.ROLE_TYPES.getEnum(s.substring(s.indexOf("=")+1)));
+                    } catch (IllegalArgumentException iae){
+                        retVal.setROLE(AttendeeData.ROLE_TYPES.OTHER);
+                    }
                 } else if(s.startsWith("PARTSTAT=")){
                     retVal.setPARTSTAT(AttendeeData.PARTSTAT_TYPE.getEnum(s.substring(s.indexOf("=")+1)));
                 } else if(s.startsWith("RSVP=")){

@@ -19,4 +19,27 @@ public class PeopleData {
     public String[] getMembers() {
         return members;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+
+        PeopleData that = (PeopleData) o;
+
+        if (!Arrays.equals(members, that.members)){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return members != null ? Arrays.hashCode(members) : 0;
+    }
 }
