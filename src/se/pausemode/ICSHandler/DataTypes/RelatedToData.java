@@ -5,7 +5,8 @@ public class RelatedToData {
     public enum RELTYPE_TYPE{
         PARENT,
         CHILD,
-        SIBLING
+        SIBLING,
+        OTHER
     }
 
     private RELTYPE_TYPE RELTYPE;

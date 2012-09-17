@@ -2,22 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="229cc0bd-c316-4353-adc5-c8d896906f9d" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\AttachData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/AttachData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\AttendeeData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/AttendeeData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\DateData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/DateData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\DurationData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/DurationData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\Organizer.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/OrganizerData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\PeopleData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/PeopleData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\Position.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/PositionData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\RecurrenceID.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RecurrenceIDData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\RecurrenceRule.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RecurrenceRuleData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\RelatedToData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\RequestStatusData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RequestStatusData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\StringData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/StringData.java" />
-      <change type="MOVED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\src\se\pausemode\ICSHandler\WeekDayNum.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/WeekDayNumData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/TestClasses/ParserUtilTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Util/ParserUtil.java" />
+      <change type="DELETED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\ICSParser\.gitattributes" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\mattiaszi\IdeaProjects\ICSParser\ICSParser\.gitignore" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ICSParser.iml" afterPath="$PROJECT_DIR$/ICSParser.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RecurrenceRuleData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RecurrenceRuleData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java" />
     </list>
     <ignored path="ICSParser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,21 +28,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" line="189" class="se.pausemode.ICSHandler.CalendarHandler" package="se.pausemode.ICSHandler">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -89,7 +67,48 @@
     <favorites_list name="ICSParser" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="CalendarHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="163" column="79" selection-start="6919" selection-end="6933" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#668#676#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParserUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Util/ParserUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="58" selection-start="1105" selection-end="1127" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParserUtilTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/TestClasses/ParserUtilTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="88" column="90" selection-start="4308" selection-end="4308" vertical-scroll-proportion="0.40967742">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RelatedToData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -103,12 +122,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Position.java" />
-        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/StringData.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/WeekDayNum.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DateData.java" />
-        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" />
-        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/OrganizerData.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/OrganizerData.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RecurrenceIDData.java" />
@@ -116,9 +131,13 @@
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RecurrenceRule.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/RecurrenceRuleData.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RecurrenceRuleData.java" />
-        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/WeekDayNumData.java" />
         <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/WeekDayNumData.java" />
+        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java" />
+        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" />
+        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java" />
+        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/Util/ParserUtil.java" />
+        <option value="$PROJECT_DIR$/src/se/pausemode/ICSHandler/TestClasses/ParserUtilTest.java" />
       </list>
     </option>
   </component>
@@ -135,7 +154,22 @@
             <id />
           </State>
           <State>
+            <id>Error handling</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>JUnit issues</id>
+          </State>
+          <State>
             <id>Spelling</id>
+          </State>
+          <State>
+            <id>TestNG</id>
           </State>
         </expanded-state>
         <selected-state>
@@ -227,6 +261,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ICSParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ICSParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ICSHandler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope">
@@ -244,16 +300,18 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.last.edited" value="SDKs" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="project.propVCSSupport.VCSs.Git" />
+    <property name="options.lastSelected" value="preferences.intentionPowerPack" />
     <property name="last_opened_file_path" value="C:" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -261,11 +319,14 @@
     <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="se.pausemode.ICSHandler.TestClasses" />
+    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="se.pausemode.ICSHandler" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="JUnit.ParserUtilTest">
     <configuration default="false" name="Test" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="se.pausemode.ICSHandler.Test" />
       <option name="VM_PARAMETERS" />
@@ -285,6 +346,28 @@
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ParserUtilTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <module name="ICSParser" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="se.pausemode.ICSHandler.TestClasses" />
+      <option name="MAIN_CLASS_NAME" value="se.pausemode.ICSHandler.TestClasses.ParserUtilTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -405,8 +488,9 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.ParserUtilTest" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -447,12 +531,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="840" y="0" width="840" height="1010" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3282353" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33411765" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3487298" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.49548388" order="7" side_tool="true" content_ui="tabs" />
@@ -463,12 +547,12 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4812903" sideWeight="0.67176473" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22470587" sideWeight="0.9972401" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30709678" sideWeight="0.66588235" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3926097" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22352941" sideWeight="0.9972401" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -531,18 +615,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/AttachData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="18" selection-start="762" selection-end="762" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/PeopleData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="18" selection-start="150" selection-end="150" vertical-scroll-proportion="0.0">
@@ -585,24 +657,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="29" selection-start="1345" selection-end="1345" vertical-scroll-proportion="0.16007534">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="0" selection-start="7243" selection-end="7243" vertical-scroll-proportion="0.99139786">
-          <folding>
-            <element signature="e#701#709#0" expanded="true" />
-            <element signature="e#2044#2052#0" expanded="true" />
-            <element signature="e#22627#22635#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/PositionData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="18" selection-start="590" selection-end="590" vertical-scroll-proportion="0.6529774">
@@ -631,6 +685,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/WeekDayNumData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="0" selection-start="554" selection-end="554" vertical-scroll-proportion="0.87741935">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Calendar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="16" selection-start="686" selection-end="686" vertical-scroll-proportion="-0.27283952">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/RelatedToData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0">
@@ -638,10 +706,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/DataTypes/WeekDayNumData.java">
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/Util/ParserUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="554" selection-end="554" vertical-scroll-proportion="0.87741935">
+        <state line="30" column="58" selection-start="1105" selection-end="1127" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="163" column="79" selection-start="6919" selection-end="6933" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#668#676#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/TestClasses/ParserUtilTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="90" selection-start="4308" selection-end="4308" vertical-scroll-proportion="0.40967742">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

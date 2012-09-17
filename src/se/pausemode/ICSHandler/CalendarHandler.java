@@ -1,6 +1,6 @@
 package se.pausemode.ICSHandler;
 
-import se.pausemode.ICSHandler.DataTypes.*;
+import se.pausemode.ICSHandler.Util.ParserUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static java.lang.System.err;
 
 public class CalendarHandler {
 
@@ -25,9 +23,7 @@ public class CalendarHandler {
         ArrayList<String> retVal = new ArrayList<String>();
         boolean startSave = false;
         boolean pauseSave = false;
-        String element;
-        for(int i = 0; i < completeFoldedList.size(); i++){
-            element = completeFoldedList.get(i);
+        for(String element : completeFoldedList){
             if(element.startsWith("BEGIN:" + filterTag)){
                 startSave = true;
             }
@@ -37,8 +33,6 @@ public class CalendarHandler {
             if(!pauseSave){
                 pauseSave = !element.startsWith("BEGIN:"+filterTag) && element.startsWith("BEGIN:");
             }
-
-
             if(startSave && !pauseSave && !element.startsWith("BEGIN:" + filterTag)){
                 retVal.add(element);
             }
@@ -77,10 +71,10 @@ public class CalendarHandler {
             bfr.close();
 
         }catch(FileNotFoundException fnf){
-            err.println(fnf.toString());
+            System.err.println(fnf.toString());
         }
         catch (Exception e){
-            err.println(e.toString());
+            System.err.println(e.toString());
         }
         return source;
     }
@@ -93,7 +87,7 @@ public class CalendarHandler {
             //DTSTAMP:19971210T080000Z
             retVal.setDTSTAMP(map.get("DTSTAMP"));
             //DTSTART:20120829T165000Z
-            retVal.setDTSTART(parseDateData(map.get("DTSTART")));
+            retVal.setDTSTART(ParserUtil.parseDateData(map.get("DTSTART")));
 
             /** Optional **/
             //CLASS:XXXXXXX
@@ -103,16 +97,16 @@ public class CalendarHandler {
             //DESCRIPTION:Meeting to provide technical review for "Phoenix"
             //design.\nHappy Face Conference Room. Phoenix design team
             //MUST attend this meeting.\nRSVP to team leader.
-            retVal.setDESCRIPTION(parseStringData(map.get("DESCRIPTION")));
+            retVal.setDESCRIPTION(ParserUtil.parseStringData(map.get("DESCRIPTION")));
             //GEO:37.386013;-122.082932
-            retVal.setGEO(parseGeo(map.get("GEO")));
+            retVal.setGEO(ParserUtil.parseGeo(map.get("GEO")));
             //LAST-MODIFIED:19960817T133000Z
             retVal.setLASTMODIFIED(map.get("LAST-MODIFIED"));
             //LOCATION:Conference Room - F123\, Bldg. 002
-            retVal.setLOCATION(parseStringData(map.get("LOCATION")));
+            retVal.setLOCATION(ParserUtil.parseStringData(map.get("LOCATION")));
             //ORGANIZER;CN=JohnSmith;DIR="ldap://example.com:6666/o=DC%20Ass
             //ociates,c=US???(cn=John%20Smith)":mailto:jsmith@example.com
-            retVal.setORGANIZER(parseOrganizer(map.get("ORGANIZER")));
+            retVal.setORGANIZER(ParserUtil.parseOrganizer(map.get("ORGANIZER")));
             //PRIORITY:2
             String prio = map.get("PRIORITY");
             if(prio != null){
@@ -129,7 +123,7 @@ public class CalendarHandler {
                 retVal.setSTATUS(Calendar.EventStatus.valueOf(status));
             }
             //SUMMARY:Department Party
-            retVal.setSUMMARY(parseStringData(map.get("SUMMARY")));
+            retVal.setSUMMARY(ParserUtil.parseStringData(map.get("SUMMARY")));
             //TRANSP:TRANSPARENT
             String transp = map.get("TRANSP");
             if(transp != null){
@@ -139,379 +133,48 @@ public class CalendarHandler {
             retVal.setURL(map.get("URL"));
             //RECURRENCE-ID;VALUE=DATE:19960401
             //RECURRENCE-ID;RANGE=THISANDFUTURE:19960120T120000Z
-            retVal.setRECURRENCEID(parseRecurrenceID(map.get("RECURRENCE-ID")));
+            retVal.setRECURRENCEID(ParserUtil.parseRecurrenceID(map.get("RECURRENCE-ID")));
             //RRULE:FREQ=YEARLY;INTERVAL=2;BYMONTH=1;BYDAY=SU;BYHOUR=8,9;
             //BYMINUTE=30
-            retVal.setRECURRENCERULE(parseRecurrenceRule(map.get("RRULE")));
+            retVal.setRECURRENCERULE(ParserUtil.parseRecurrenceRule(map.get("RRULE")));
             /** Either DTEND *or* DURATION */
             //DTEND:20120829T175000Z
-            retVal.setDTEND(parseDateData(map.get("DTEND")));
+            retVal.setDTEND(ParserUtil.parseDateData(map.get("DTEND")));
             //DURATION:PT1H0M0S
-            retVal.setDURATION(parseDurationData(map.get("DURATION")));
+            retVal.setDURATION(ParserUtil.parseDurationData(map.get("DURATION")));
             //ATTACH;FMTTYPE=text/plain;ENCODING=BASE64;VALUE=BINARY:VGhlIH
             //F1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4
-            retVal.setATTACH(parseAttachData(map.get("ATTACH")));
+            retVal.setATTACH(ParserUtil.parseAttachData(map.get("ATTACH")));
             //ATTENDEE;ROLE_TYPES=REQ-PARTICIPANT;DELEGATED-FROM="mailto:bob@
             //example.com";PARTSTAT=ACCEPTED;CN=Jane Doe:mailto:jdoe@
             //example.com
-            retVal.setATTENDEE(parseAttendeeData(map.get("ATTENDEE")));
+            retVal.setATTENDEE(ParserUtil.parseAttendeeData(map.get("ATTENDEE")));
             //CATEGORIES:APPOINTMENT,EDUCATION
-            retVal.setCATEGORIES(parseCategoriesData(map.get("CATEGORIES")));
+            retVal.setCATEGORIES(ParserUtil.parseCategoriesData(map.get("CATEGORIES")));
             //COMMENT:Hej hopp vad kul!
-            retVal.setCOMMENT(parseStringData(map.get("COMMENT")));
+            retVal.setCOMMENT(ParserUtil.parseStringData(map.get("COMMENT")));
             //CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
             //c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
             //+1-919-555-1234
-            retVal.setCONTACT(parseStringData(map.get("CONTACT")));
+            retVal.setCONTACT(ParserUtil.parseStringData(map.get("CONTACT")));
             //EXDATE:19960402T010000Z,19960403T010000Z,19960404T010000Z
-            retVal.setEXDATE(parseDateData(map.get("EXDATE")));
+            retVal.setEXDATE(ParserUtil.parseDateData(map.get("EXDATE")));
             //REQUEST-STATUS:2.8; Success\, repeating event ignored. Scheduled
             //as a single event.;RRULE:FREQ=WEEKLY\;INTERVAL=2
-            retVal.setREQUESTSTATUS(parseRequestStatusData(map.get("REQUEST-STATUS")));
+            retVal.setREQUESTSTATUS(ParserUtil.parseRequestStatusData(map.get("REQUEST-STATUS")));
             //RELATED-TO:jsmith.part7.19960817T083000.xyzMail@example.com
-            retVal.setRELATEDTO(parseRelatedToData(map.get("RELATED-TO")));
+            retVal.setRELATEDTO(ParserUtil.parseRelatedToData(map.get("RELATED-TO")));
             //RESOURCES;LANGUAGE=fr:Nettoyeur haute pression
-            retVal.setRESOURCES(parseStringData(map.get("RESOURCES")));
+            retVal.setRESOURCES(ParserUtil.parseStringData(map.get("RESOURCES")));
             //RDATE;VALUE=PERIOD:19960403T020000Z/19960403T040000Z,
             //19960404T010000Z/PT3H
-            retVal.setRDATE(parseDateData(map.get("RDATE")));
+            retVal.setRDATE(ParserUtil.parseDateData(map.get("RDATE")));
         }
 
         return retVal;
     }
 
-    private RelatedToData parseRelatedToData(String relatedToString) {
-        RelatedToData retVal = null;
 
-        if(relatedToString != null){
-            retVal = new RelatedToData();
-            int indexOfColon = -1;
-            if(relatedToString.contains(":")){
-                indexOfColon = relatedToString.indexOf(":");
-                for(String arg:relatedToString.substring(0, indexOfColon).split(";")){
-                    if(arg.startsWith("RELTYPE=")){
-                        retVal.setRELTYPE(RelatedToData.RELTYPE_TYPE.valueOf(arg.substring(arg.indexOf("=")+1)));
-                    }
-                }
-            }
-            retVal.setVALUE(relatedToString.substring(indexOfColon+1));
-        }
-        return retVal;
-    }
-
-    private RequestStatusData parseRequestStatusData(String requestStatusString) {
-        RequestStatusData retVal = null;
-        if(requestStatusString != null){
-            retVal = new RequestStatusData();
-            int trackIndex = 0;
-            if(!Character.isDigit(requestStatusString.charAt(0))){
-                //Handle optional (Language) strings
-                for(String arg : requestStatusString.substring(0,requestStatusString.indexOf(":")).split(";")){
-                    if(arg.startsWith("LANGUAGE=")){
-                        retVal.setLanguage(arg.substring(arg.indexOf("=")+1));
-                    }
-                }
-                trackIndex = requestStatusString.indexOf(":") + 1;
-            }
-            retVal.setStatCode(requestStatusString.substring(trackIndex, requestStatusString.indexOf(";", trackIndex)));
-            trackIndex = requestStatusString.indexOf(";", trackIndex) + 1;
-
-            if(requestStatusString.indexOf(";", trackIndex) == -1){
-                retVal.setStatDesc(requestStatusString.substring(trackIndex));
-            } else {
-                retVal.setStatDesc(requestStatusString.substring(trackIndex,requestStatusString.indexOf(";",trackIndex)));
-                trackIndex = requestStatusString.indexOf(";",trackIndex);
-                retVal.setExtData(requestStatusString.substring(requestStatusString.indexOf(";", trackIndex) + 1));
-            }
-
-        }
-
-        return retVal;
-    }
-
-    private StringData parseCategoriesData(String categoriesString) {
-        StringData retVal = null;
-        if(categoriesString != null){
-            retVal = new StringData();
-            String[] parseData = categoriesString.split(":");
-            if(parseData.length > 1){
-                retVal.setString(parseData[1]);
-                for(String s:parseData[0].split(";")){
-                    if(s.startsWith("LANGUAGE")){
-                        retVal.setLanguage(s.substring(s.indexOf("=")+1));
-                    }
-                }
-            } else {
-                retVal.setString(parseData[0]);
-            }
-
-        }
-        return retVal;
-    }
-
-    private AttendeeData parseAttendeeData(String attendeeString) {
-        AttendeeData retVal = null;
-
-        if(attendeeString != null){
-            retVal = new AttendeeData();
-            String mailTo = null;
-            if(attendeeString.contains(":mailto:")){
-                mailTo = ":mailto:";
-            } else if(attendeeString.contains(":MAILTO:")) {
-                mailTo = ":MAILTO:";
-            }
-            int indexOfCalAddress = attendeeString.lastIndexOf(mailTo);
-            String[] arr = attendeeString.substring(0,indexOfCalAddress).split(";");
-            retVal.setURI(attendeeString.split(mailTo)[1]);
-            for(String s:arr){
-                if(s.startsWith("CUTYPE=")){
-                    retVal.setCUTYPE(AttendeeData.CUTYPE_TYPES.valueOf(s.substring(s.indexOf("=") + 1)));
-                } else if(s.startsWith("MEMBER=")){
-                    retVal.setMEMBER(parsePeopleData(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("ROLE_TYPES=")){
-                    retVal.setROLE(AttendeeData.ROLE_TYPES.getEnum(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("PARTSTAT=")){
-                    retVal.setPARTSTAT(AttendeeData.PARTSTAT_TYPE.getEnum(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("RSVP=")){
-                    retVal.setRSVP(Boolean.parseBoolean(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("DELEGATED-TO=")){
-                    retVal.setDELEGATED_TO(parsePeopleData(s.substring(s.indexOf("=") + 1)));
-                } else if(s.startsWith("DELEGATED-FROM=")){
-                    retVal.setDELEGATED_FROM(parsePeopleData(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("SENT-BY=")){
-                    retVal.setSENT_BY(parsePeopleData(s.substring(s.indexOf("=") +1)));
-                } else if(s.startsWith("CN=")){
-                    retVal.setCN(s.substring(s.indexOf("=")+1).replace("\"",""));
-                } else if(s.startsWith("DIR=")){
-                    retVal.setDIR(s.substring(s.indexOf("=")+1).replace("\"",""));
-                } else if(s.startsWith("LANGUAGE=")){
-                    retVal.setLANGUAGE(s.substring(s.indexOf("=")+1));
-                }
-            }
-        }
-
-        return retVal;
-    }
-
-    private PeopleData parsePeopleData(String peopleDataString){
-        PeopleData pd = new PeopleData();
-        String[] members = peopleDataString.split(",");
-        for(int i = 0; i < members.length; i++){
-            //Remove trailing/ending "
-            members[i] = members[i].substring(1,members[i].length()-1);
-        }
-        pd.setMembers(members);
-        return pd;
-    }
-
-    private AttachData parseAttachData(String attachString) {
-        AttachData retVal = null;
-        if(attachString != null){
-            retVal = new AttachData();
-            if(!attachString.contains("=")){
-                retVal.setURI(attachString);
-            } else {
-                int indexOfURI = attachString.indexOf(":");
-                retVal.setURI(attachString.substring(indexOfURI+1));
-                for(String s: attachString.substring(0,indexOfURI).split(";")){
-                    if(s.startsWith("FMTTYPE=")){
-                        retVal.setFMTTYPE(s.substring(s.indexOf("=")+1));
-                    } else if(s.startsWith("ENCODING=")){
-                        retVal.setENCODING(s.substring(s.indexOf("=")+1));
-                    } else if(s.startsWith("VALUE=")){
-                        retVal.setVALUE(s.substring(s.indexOf("=")+1));
-                    }
-                }
-            }
-        }
-        return retVal;
-    }
-
-    private DurationData parseDurationData(String durationString) {
-        DurationData retVal = null;
-        if(durationString != null && durationString.startsWith("PT")){
-            retVal = new DurationData();
-            int startIndex = 2;
-            if(durationString.contains("H")){
-                retVal.setHour(Integer.parseInt(durationString.substring(startIndex,durationString.indexOf("H"))));
-                startIndex = durationString.indexOf("H")+1;
-            }
-            if(durationString.contains("M")){
-                retVal.setMinute(Integer.parseInt(durationString.substring(startIndex,durationString.indexOf("M"))));
-                startIndex = durationString.indexOf("M") + 1;
-            }
-            if(durationString.contains("S")){
-                retVal.setSecond(Integer.parseInt(durationString.substring(startIndex,durationString.indexOf("S"))));
-            }
-        }
-        return retVal;
-    }
-
-    private RecurrenceRuleData parseRecurrenceRule(String recurString) {
-        RecurrenceRuleData retVal = null;
-        if(recurString != null){
-            retVal = new RecurrenceRuleData();
-            for(String s: recurString.split(";")){
-                if(s.startsWith("FREQ=")){
-                    retVal.setFREQ(RecurrenceRuleData.FREQVALUE.valueOf(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("UNTIL=")){
-                    retVal.setUNTIL(parseDateData(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("COUNT=")){
-                    retVal.setCOUNT(Integer.parseInt(s.substring(s.indexOf("=")+1)));
-                } else if(s.startsWith("INTERVAL=")){
-                    retVal.setINTERVAL(Integer.parseInt(s.substring(s.indexOf("=") + 1)));
-                } else if(s.startsWith("BYSECOND=")){
-                    retVal.setBYSECOND(convertStringArrayToIntegerArray(s.substring(s.indexOf("=") + 1).split(",")));
-                } else if(s.startsWith("BYMINUTE=")){
-                    retVal.setBYMINUTE(convertStringArrayToIntegerArray(s.substring(s.indexOf("=") + 1).split(",")));
-                } else if(s.startsWith("BYHOUR=")){
-                    retVal.setBYHOUR(convertStringArrayToIntegerArray(s.substring(s.indexOf("=") + 1).split(",")));
-                } else if(s.startsWith("BYDAY=")){
-                    retVal.setBYDAY(parseWeekDay(s.substring(s.indexOf("=")+1).split(",")));
-                } else if(s.startsWith("BYMONTHDAY=")){
-                    retVal.setBYMONTHDAY(convertStringArrayToIntegerArray(s.substring(s.indexOf("=")+1).split(",")));
-                } else if(s.startsWith("BYYEARDAY=")){
-                    retVal.setBYYEARDAY(convertStringArrayToIntegerArray(s.substring(s.indexOf("=")+1).split(",")));
-                } else if(s.startsWith("BYWEEKNO=")){
-                    retVal.setBYWEEKNO(convertStringArrayToIntegerArray(s.substring(s.indexOf("=")+1).split(",")));
-                } else if(s.startsWith("BYMONTH=")){
-                    retVal.setBYMONTH(convertStringArrayToIntegerArray(s.substring(s.indexOf("=")+1).split(",")));
-                } else if(s.startsWith("BYSETPOS=")){
-                    retVal.setBYSETPOS(convertStringArrayToIntegerArray(s.substring(s.indexOf("=")+1).split(",")));
-                } else if(s.startsWith("WKST=")){
-                    retVal.setWKST(RecurrenceRuleData.WEEKDAY.valueOf(s.substring(s.indexOf("=") + 1)));
-                }
-            }
-        }
-
-        return retVal;
-    }
-
-    private WeekDayNumData[] parseWeekDay(String[] weekDays) {
-        WeekDayNumData[] retVal = null;
-
-        if(weekDays != null){
-            retVal = new WeekDayNumData[weekDays.length];
-            int i = 0;
-            for(String s : weekDays){
-                WeekDayNumData element = new WeekDayNumData();
-                if(s.length() == 4){
-                    element.setOccurence(Integer.parseInt(s.substring(0,2)));
-                    element.setWeekday(RecurrenceRuleData.WEEKDAY.valueOf(s.substring(2)));
-                } else if(s.length() == 3){
-                    element.setOccurence(Integer.parseInt(s.substring(0, 1)));
-                    element.setWeekday(RecurrenceRuleData.WEEKDAY.valueOf(s.substring(1)));
-                } else if(s.length() == 2){
-                    element.setWeekday(RecurrenceRuleData.WEEKDAY.valueOf(s));
-                }
-                retVal[i++] = element;
-            }
-        }
-        return retVal;
-    }
-
-    private int[] convertStringArrayToIntegerArray(String[] numberArray) {
-        int[] retVal = new int[numberArray.length];
-        int i = 0;
-        for(String s:numberArray){
-            retVal[i++] = Integer.parseInt(s);
-        }
-        return retVal;
-    }
-
-    private StringData parseStringData(String stringData) {
-        StringData retVal = null;
-        if(stringData != null){
-            retVal = new StringData();
-            int valueSeparator = stringData.lastIndexOf(":");
-            if(valueSeparator > -1){
-                retVal.setString(stringData.substring(valueSeparator+1));
-                for(String s:stringData.substring(0,valueSeparator).split(";")){
-                    if(s.startsWith("LANGUAGE=")){
-                        retVal.setLanguage(s.substring(s.indexOf("=")+1));
-                    } else if(s.startsWith("ALTREP=")){
-                        retVal.setAltrep(s.substring(s.indexOf("=")+1).replace("\"",""));
-                    }
-                }
-            } else {
-                retVal.setString(stringData);
-            }
-
-        }
-        return retVal;
-    }
-
-    private DateData parseDateData(String dateDataString){
-        DateData retVal = null;
-        if(dateDataString != null){
-            retVal = new DateData();
-            int indexOfColon = dateDataString.lastIndexOf(":");
-            if(indexOfColon > 0){
-                retVal.setValue(dateDataString.substring(indexOfColon+1));
-                for(String s: dateDataString.substring(0,indexOfColon).split(";")){
-                    if(s.startsWith("VALUE")){
-                        retVal.setValue_type(RecurrenceIDData.VALUE_TYPE.getEnum(s.split("=")[1]));
-                    } else if(s.startsWith("TZID")){
-                        retVal.setTZID(s.split("=")[1]);
-                    }
-                }
-            } else {
-               retVal.setValue(dateDataString);
-            }
-        }
-        return retVal;
-    }
-
-    private RecurrenceIDData parseRecurrenceID(String recurrenceString) {
-        RecurrenceIDData recurrenceIDData = null;
-        if(recurrenceString != null){
-            recurrenceIDData = (RecurrenceIDData) parseDateData(recurrenceString);
-            int indexOfColon = recurrenceString.lastIndexOf(":");
-            for(String s: recurrenceString.substring(0,indexOfColon).split(";")){
-                if(s.startsWith("RANGE")){
-                    recurrenceIDData.setRange(RecurrenceIDData.RANGE.valueOf(s.split("=")[1]));
-                }
-            }
-        }
-        return recurrenceIDData;
-    }
-
-    private PositionData parseGeo(String geoString){
-        PositionData pos = null;
-        if(geoString != null){
-            String[] geo = geoString.split(";");
-            pos = new PositionData(Float.parseFloat(geo[0]),Float.parseFloat(geo[1]));
-        }
-        return pos;
-    }
-
-    private OrganizerData parseOrganizer(String organizerString) {
-        //ORGANIZER;CN=JohnSmith;DIR="ldap://example.com:6666/o=DC%20Ass
-        //ociates,c=US???(cn=John%20Smith)":mailto:jsmith@example.com
-       OrganizerData organizerData = new OrganizerData();
-        String mailTo = null;
-        if(organizerString.contains(":mailto:")){
-            mailTo = ":mailto:";
-        } else if(organizerString.contains(":MAILTO:")) {
-            mailTo = ":MAILTO:";
-        }
-
-        int indexOfCalAddress = organizerString.lastIndexOf(mailTo);
-        String[] arr = organizerString.substring(0,indexOfCalAddress).split(";");
-        organizerData.setCalAddress(organizerString.split(mailTo)[1]);
-        for(String s: arr){
-            if(s.startsWith("CN")){
-                organizerData.setCommonName(s.substring(s.indexOf("=") + 1));
-            } else if(s.startsWith("DIR")){
-                organizerData.setDirectory(s.substring(s.indexOf("=") + 1));
-            } else if(s.startsWith("SENT-BY")){
-                organizerData.setSentBy(s.substring(s.indexOf("=") + 1));
-            } else if(s.startsWith("LANGUAGE")){
-                organizerData.setLanguage(s.substring(s.indexOf("=")+1));
-            }
-        }
-        return organizerData;
-    }
 
     private ArrayList<String> unfold(ArrayList<String> source){
         ArrayList<String> unfoldedList = new ArrayList<String>();
