@@ -57,7 +57,8 @@ public class AttendeeData {
         ACCEPTED,
         DECLINED,
         TENTATIVE,
-        DELEGATED;
+        DELEGATED,
+        OTHER;
 
         public static PARTSTAT_TYPE getEnum(String value){
             PARTSTAT_TYPE retVal = null;
@@ -73,10 +74,8 @@ public class AttendeeData {
                 } else if(value.equals("DELEGATED")){
                     return DELEGATED;
                 }
-            } else {
-                throw new IllegalArgumentException();
             }
-            return retVal;
+            throw new IllegalArgumentException();
         }
     }
 

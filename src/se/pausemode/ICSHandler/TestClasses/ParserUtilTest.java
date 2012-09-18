@@ -133,6 +133,7 @@ public class ParserUtilTest extends TestCase {
         assertNull(ad.getPARTSTAT());
         assertNull(ad.getROLE());
         assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
         assertEquals("mailto:ietf-calsch@example.org", ad.getURI());
 
         ad = ParserUtil.parseAttendeeData("CUTYPE=GROUP:mailto:ietf-calsch@example.org");
@@ -163,6 +164,7 @@ public class ParserUtilTest extends TestCase {
         assertNull(ad.getPARTSTAT());
         assertNull(ad.getROLE());
         assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
         assertEquals("mailto:ietf-calsch@example.org", ad.getURI());
 
         ////
@@ -181,6 +183,7 @@ public class ParserUtilTest extends TestCase {
         assertNull(ad.getPARTSTAT());
         assertNull(ad.getROLE());
         assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
         assertEquals("mailto:joecool@example.com", ad.getURI());
 
         ad = ParserUtil.parseAttendeeData("MEMBER=\"mailto:projectA@example.com\",\"mailto:projectB@example.com\":mailto:janedoe@example.com");
@@ -203,6 +206,7 @@ public class ParserUtilTest extends TestCase {
         assertNull(ad.getPARTSTAT());
         assertNull(ad.getMEMBER());
         assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
         assertEquals("mailto:mrbig@example.com", ad.getURI());
 
         ad = ParserUtil.parseAttendeeData("ROLE=REQ-PARTICIPANT:mailto:mrbig@example.com");
@@ -221,13 +225,258 @@ public class ParserUtilTest extends TestCase {
         assertEquals(AttendeeData.ROLE_TYPES.OTHER, ad.getROLE());
         assertEquals("mailto:mrbig@example.com", ad.getURI());
 
+        ////
+
+        ad = ParserUtil.parseAttendeeData("PARTSTAT=DECLINED:mailto:jsmith@example.com");
+        assertEquals(AttendeeData.PARTSTAT_TYPE.DECLINED, ad.getPARTSTAT());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getCN());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_FROM());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getROLE());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("PARTSTAT=ACCEPTED:mailto:jsmith@example.com");
+        assertEquals(AttendeeData.PARTSTAT_TYPE.ACCEPTED, ad.getPARTSTAT());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("PARTSTAT=TENTATIVE:mailto:jsmith@example.com");
+        assertEquals(AttendeeData.PARTSTAT_TYPE.TENTATIVE, ad.getPARTSTAT());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("PARTSTAT=DELEGATED:mailto:jsmith@example.com");
+        assertEquals(AttendeeData.PARTSTAT_TYPE.DELEGATED, ad.getPARTSTAT());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("PARTSTAT=NEEDS-ACTION:mailto:jsmith@example.com");
+        assertEquals(AttendeeData.PARTSTAT_TYPE.NEEDS_ACTION, ad.getPARTSTAT());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("PARTSTAT=DOUBTFUL:mailto:jsmith@example.com");
+        assertEquals(AttendeeData.PARTSTAT_TYPE.OTHER, ad.getPARTSTAT());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("RSVP=TRUE:mailto:jsmith@example.com");
+        assertTrue(ad.getRSVP());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getCN());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_FROM());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getROLE());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getSENT_BY());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("RSVP=FALSE:mailto:jsmith@example.com");
+        assertFalse(ad.getRSVP());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("DELEGATED-TO=\"mailto:jdoe@example.com\",\"mailto:jqpublic@example.com\":mailto:jsmith@example.com");
+        pd = new PeopleData();
+        pd.setMembers(new String[]{"mailto:jdoe@example.com", "mailto:jqpublic@example.com"});
+        assertEquals(pd, ad.getDELEGATED_TO());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getCN());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_FROM());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("DELEGATED-TO=\"mailto:jdoe@example.com\":mailto:jsmith@example.com");
+        pd = new PeopleData();
+        pd.setMembers(new String[]{"mailto:jdoe@example.com"});
+        assertEquals(pd, ad.getDELEGATED_TO());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("DELEGATED-FROM=\"mailto:jdoe@example.com\",\"mailto:jqpublic@example.com\":mailto:jsmith@example.com");
+        pd = new PeopleData();
+        pd.setMembers(new String[]{"mailto:jdoe@example.com", "mailto:jqpublic@example.com"});
+        assertEquals(pd, ad.getDELEGATED_FROM());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getCN());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getSENT_BY());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("DELEGATED-FROM=\"mailto:jdoe@example.com\":mailto:jsmith@example.com");
+        pd = new PeopleData();
+        pd.setMembers(new String[]{"mailto:jdoe@example.com"});
+        assertEquals(pd, ad.getDELEGATED_FROM());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("SENT-BY=\"mailto:sray@example.com\":mailto:jsmith@example.com");
+        pd = new PeopleData();
+        pd.setMembers(new String[]{"mailto:sray@example.com"});
+        assertEquals(pd, ad.getSENT_BY());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getCN());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getDELEGATED_FROM());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("CN=\"John Smith\":mailto:jsmith@example.com");
+        assertEquals("John Smith", ad.getCN());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getSENT_BY());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getDELEGATED_FROM());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
+
+        ad = ParserUtil.parseAttendeeData("CN=\"John \"Tomatohead\" Smith\":mailto:jsmith@example.com");
+        assertEquals("John \"Tomatohead\" Smith", ad.getCN());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("DIR=\"ldap://example.com:6666/o=ABC%20Industries,c=US???(cn=Jim%20Dolittle)\":mailto:jimdo@example.com");
+        assertEquals("ldap://example.com:6666/o=ABC%20Industries,c=US???(cn=Jim%20Dolittle)", ad.getDIR());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getSENT_BY());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getCN());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getDELEGATED_FROM());
+        assertEquals("mailto:jimdo@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("LANGUAGE=en:Germany;DIR=\"ldap://example.com:6666/o=ABC%20Industries,c=US???(cn=Jim%20Dolittle)\":mailto:jimdo@example.com");
+        assertEquals("en:Germany", ad.getLANGUAGE());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getSENT_BY());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getCN());
+        assertEquals("ldap://example.com:6666/o=ABC%20Industries,c=US???(cn=Jim%20Dolittle)", ad.getDIR());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getDELEGATED_FROM());
+        assertEquals("mailto:jimdo@example.com", ad.getURI());
+
+        ////
+
+        ad = ParserUtil.parseAttendeeData("CN=\"John Smith\";INVALIDPARAM=Terminator:mailto:jsmith@example.com");
+        assertEquals("John Smith", ad.getCN());
+        assertNull(ad.getCALADDRESS());
+        assertNull(ad.getSENT_BY());
+        assertNull(ad.getCUTYPE());
+        assertNull(ad.getDELEGATED_TO());
+        assertNull(ad.getMEMBER());
+        assertNull(ad.getDIR());
+        assertNull(ad.getLANGUAGE());
+        assertNull(ad.getPARTSTAT());
+        assertNull(ad.getROLE());
+        assertNull(ad.getRSVP());
+        assertNull(ad.getDELEGATED_FROM());
+        assertEquals("mailto:jsmith@example.com", ad.getURI());
     }
 
     public void testParsePeopleData() throws Exception {
+        PeopleData pd;
+        PeopleData expected;
+        assertNull(ParserUtil.parsePeopleData(null));
 
+        pd = ParserUtil.parsePeopleData("\"Kalle\",\"Bertil\",\"Ove\"");
+        expected = new PeopleData();
+        expected.setMembers(new String[]{"Kalle", "Bertil", "Ove"});
+        assertEquals(expected, pd);
+
+
+        pd = ParserUtil.parsePeopleData("\"HasseBrasse\"");
+        expected = new PeopleData();
+        expected.setMembers(new String[]{"HasseBrasse"});
+        assertEquals(expected, pd);
+
+        pd = ParserUtil.parsePeopleData("\"Göran \"pizzaälskaren\" Poulssen\"");
+        expected = new PeopleData();
+        expected.setMembers(new String[]{"Göran \"pizzaälskaren\" Poulssen"});
+        assertEquals(expected, pd);
     }
 
     public void testParseAttachData() throws Exception {
+        AttachData ad = null;
+        AttachData expected = null;
+        assertNull(ParserUtil.parseAttachData(null));
+
+        ad = ParserUtil.parseAttachData("CID:jsmith.part3.960817T083000.xyzMail@example.com");
+        expected = new AttachData();
+        expected.setURI("CID:jsmith.part3.960817T083000.xyzMail@example.com");
+        assertEquals(expected, ad);
+
+        ad = ParserUtil.parseAttachData("FMTTYPE=application/postscript;NONVALID=banana:ftp://example.com/pub/reports/r-960812.ps");
+        expected = new AttachData();
+        expected.setFMTTYPE("application/postscript");
+        expected.setURI("ftp://example.com/pub/reports/r-960812.ps");
+        assertEquals(expected, ad);
+
+        ad = ParserUtil.parseAttachData("ENCODING=BASE64;VALUE=BINARY:0110011000");
+        expected = new AttachData();
+        expected.setENCODING("BASE64");
+        expected.setVALUE("BINARY");
+        expected.setBINARY("0110011000");
+        assertEquals(expected, ad);
+
+        ad = ParserUtil.parseAttachData("FMTTYPE=text/binary;ENCODING=BASE64;VALUE=BINARY:0110011000");
+        expected = new AttachData();
+        expected.setENCODING("BASE64");
+        expected.setVALUE("BINARY");
+        expected.setBINARY("0110011000");
+        expected.setFMTTYPE("text/binary");
+        assertEquals(expected, ad);
+
 
     }
 

@@ -104,7 +104,11 @@ public class ParserUtil {
                         retVal.setROLE(AttendeeData.ROLE_TYPES.OTHER);
                     }
                 } else if(s.startsWith("PARTSTAT=")){
-                    retVal.setPARTSTAT(AttendeeData.PARTSTAT_TYPE.getEnum(s.substring(s.indexOf("=")+1)));
+                    try{
+                        retVal.setPARTSTAT(AttendeeData.PARTSTAT_TYPE.getEnum(s.substring(s.indexOf("=")+1)));
+                    } catch (IllegalArgumentException iae){
+                        retVal.setPARTSTAT(AttendeeData.PARTSTAT_TYPE.OTHER);
+                    }
                 } else if(s.startsWith("RSVP=")){
                     retVal.setRSVP(Boolean.parseBoolean(s.substring(s.indexOf("=")+1)));
                 } else if(s.startsWith("DELEGATED-TO=")){
@@ -114,7 +118,8 @@ public class ParserUtil {
                 } else if(s.startsWith("SENT-BY=")){
                     retVal.setSENT_BY(parsePeopleData(s.substring(s.indexOf("=") +1)));
                 } else if(s.startsWith("CN=")){
-                    retVal.setCN(s.substring(s.indexOf("=")+1).replace("\"",""));
+                    String value = s.substring(s.indexOf("=")+1);
+                    retVal.setCN(value.substring(1,value.length()-1));
                 } else if(s.startsWith("DIR=")){
                     retVal.setDIR(s.substring(s.indexOf("=")+1).replace("\"",""));
                 } else if(s.startsWith("LANGUAGE=")){
@@ -127,13 +132,16 @@ public class ParserUtil {
     }
 
     public static PeopleData parsePeopleData(String peopleDataString){
-        PeopleData pd = new PeopleData();
-        String[] members = peopleDataString.split(",");
-        for(int i = 0; i < members.length; i++){
-            //Remove trailing/ending "
-            members[i] = members[i].substring(1,members[i].length()-1);
+        PeopleData pd = null;
+        if(peopleDataString != null){
+            pd = new PeopleData();
+            String[] members = peopleDataString.split(",");
+            for(int i = 0; i < members.length; i++){
+                //Remove trailing/ending "
+                members[i] = members[i].substring(1,members[i].length()-1);
+            }
+            pd.setMembers(members);
         }
-        pd.setMembers(members);
         return pd;
     }
 
@@ -144,9 +152,9 @@ public class ParserUtil {
             if(!attachString.contains("=")){
                 retVal.setURI(attachString);
             } else {
-                int indexOfURI = attachString.indexOf(":");
-                retVal.setURI(attachString.substring(indexOfURI+1));
-                for(String s: attachString.substring(0,indexOfURI).split(";")){
+                //int indexOfURI = attachString.indexOf(":");
+               // retVal.setURI(attachString.substring(indexOfURI+1));
+                for(String s: attachString.split(";")){
                     if(s.startsWith("FMTTYPE=")){
                         retVal.setFMTTYPE(s.substring(s.indexOf("=")+1));
                     } else if(s.startsWith("ENCODING=")){
