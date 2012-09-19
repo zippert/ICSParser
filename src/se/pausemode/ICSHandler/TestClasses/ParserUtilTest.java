@@ -481,7 +481,61 @@ public class ParserUtilTest extends TestCase {
     }
 
     public void testParseDurationData() throws Exception {
+        DurationData dd = null;
+        DurationData expected = null;
+        assertNull(ParserUtil.parseDurationData(null));
 
+        dd = ParserUtil.parseDurationData("PT1H0M0S");
+        expected = new DurationData();
+        expected.setPosValue(true);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_TIME);
+        expected.setHour(1);
+        expected.setMinute(0);
+        expected.setSecond(0);
+        assertEquals(expected,dd);
+
+        dd = ParserUtil.parseDurationData("PT15M");
+        expected = new DurationData();
+        expected.setPosValue(true);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_TIME);
+        expected.setHour(0);
+        expected.setMinute(15);
+        expected.setSecond(0);
+        assertEquals(expected,dd);
+
+        dd = ParserUtil.parseDurationData("-PT15M");
+        expected = new DurationData();
+        expected.setPosValue(false);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_TIME);
+        expected.setHour(0);
+        expected.setMinute(15);
+        expected.setSecond(0);
+        assertEquals(expected,dd);
+
+        dd = ParserUtil.parseDurationData("PT2H15M30S");
+        expected = new DurationData();
+        expected.setPosValue(true);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_TIME);
+        expected.setHour(2);
+        expected.setMinute(15);
+        expected.setSecond(30);
+        assertEquals(expected,dd);
+
+        dd = ParserUtil.parseDurationData("P1DT1H0M0S");
+        expected = new DurationData();
+        expected.setPosValue(true);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_DATE);
+        expected.setDay(1);
+        expected.setHour(1);
+        expected.setMinute(0);
+        expected.setSecond(0);
+        assertEquals(expected,dd);
+
+        dd = ParserUtil.parseDurationData("P2W");
+        expected = new DurationData();
+        expected.setPosValue(true);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_WEEK);
+        expected.setWeek(2);
     }
 
     public void testParseRecurrenceRule() throws Exception {

@@ -152,15 +152,28 @@ public class ParserUtil {
             if(!attachString.contains("=")){
                 retVal.setURI(attachString);
             } else {
-                //int indexOfURI = attachString.indexOf(":");
-               // retVal.setURI(attachString.substring(indexOfURI+1));
+                String value = null;
+                boolean isBinaryValue = false;
                 for(String s: attachString.split(";")){
+                    //The logic of separating valu/uri like this depends upon existing standard default values.
+                    if(s.contains(":")){
+                        value = s.substring(s.indexOf(":")+1);
+                        s = s.substring(0,s.indexOf(":"));
+                    }
+
                     if(s.startsWith("FMTTYPE=")){
                         retVal.setFMTTYPE(s.substring(s.indexOf("=")+1));
                     } else if(s.startsWith("ENCODING=")){
                         retVal.setENCODING(s.substring(s.indexOf("=")+1));
                     } else if(s.startsWith("VALUE=")){
                         retVal.setVALUE(s.substring(s.indexOf("=")+1));
+                        isBinaryValue = true;
+                    }
+
+                    if(isBinaryValue){
+                        retVal.setBINARY(value);
+                    } else {
+                        retVal.setURI(value);
                     }
                 }
             }
@@ -170,19 +183,57 @@ public class ParserUtil {
 
     public static DurationData parseDurationData(String durationString) {
         DurationData retVal = null;
-        if(durationString != null && durationString.startsWith("PT")){
+        if(durationString != null){
             retVal = new DurationData();
-            int startIndex = 2;
-            if(durationString.contains("H")){
-                retVal.setHour(Integer.parseInt(durationString.substring(startIndex,durationString.indexOf("H"))));
-                startIndex = durationString.indexOf("H")+1;
+            int currIndex = 0;
+
+            retVal.setPosValue(!(durationString.charAt(currIndex) == '-'));
+            if(durationString.charAt(currIndex) == '+' || durationString.charAt(currIndex) == '-'){
+                currIndex++;
             }
-            if(durationString.contains("M")){
-                retVal.setMinute(Integer.parseInt(durationString.substring(startIndex,durationString.indexOf("M"))));
-                startIndex = durationString.indexOf("M") + 1;
+            if(durationString.charAt(currIndex++) != 'P'){
+                throw new IllegalArgumentException();
             }
-            if(durationString.contains("S")){
-                retVal.setSecond(Integer.parseInt(durationString.substring(startIndex,durationString.indexOf("S"))));
+            if(durationString.charAt(currIndex) == 'T'){
+                retVal.setDurationType(DurationData.DURATION_TYPE.DUR_TIME);
+                currIndex++;
+            } else if(durationString.charAt(currIndex+1) == 'D'){
+                retVal.setDurationType(DurationData.DURATION_TYPE.DUR_DATE);
+            } else if(durationString.charAt(currIndex+1) == 'W'){
+                retVal.setDurationType(DurationData.DURATION_TYPE.DUR_WEEK);
+            }
+
+            StringBuffer value = new StringBuffer();
+            Character c;
+            while(currIndex < durationString.length()){
+                c = durationString.charAt(currIndex++);
+                while(Character.isDigit(c)){
+                    value.append(c);
+                    c = durationString.charAt(currIndex++);
+                }
+
+                int i = Integer.parseInt(value.toString());
+                switch(c){
+                    case 'W':
+                        retVal.setWeek(i);
+                        break;
+                    case 'D':
+                        retVal.setDay(i);
+                        if(durationString.charAt(currIndex) == 'T'){
+                            currIndex++;
+                        }
+                        break;
+                    case 'H':
+                        retVal.setHour(i);
+                        break;
+                    case 'M':
+                        retVal.setMinute(i);
+                        break;
+                    case 'S':
+                        retVal.setSecond(i);
+                        break;
+                }
+                value = new StringBuffer();
             }
         }
         return retVal;
