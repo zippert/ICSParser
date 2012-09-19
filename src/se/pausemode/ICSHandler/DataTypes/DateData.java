@@ -54,6 +54,14 @@ public class DateData {
         this.TZID = TZID;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         return "DateData{" +
@@ -63,11 +71,25 @@ public class DateData {
                 '}';
     }
 
-    public String getValue() {
-        return value;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DateData dateData = (DateData) o;
+
+        if (TZID != null ? !TZID.equals(dateData.TZID) : dateData.TZID != null) return false;
+        if (value != null ? !value.equals(dateData.value) : dateData.value != null) return false;
+        if (value_type != dateData.value_type) return false;
+
+        return true;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    @Override
+    public int hashCode() {
+        int result = value_type != null ? value_type.hashCode() : 0;
+        result = 31 * result + (TZID != null ? TZID.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
     }
 }

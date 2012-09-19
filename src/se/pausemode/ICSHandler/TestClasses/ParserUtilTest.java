@@ -536,10 +536,142 @@ public class ParserUtilTest extends TestCase {
         expected.setPosValue(true);
         expected.setDurationType(DurationData.DURATION_TYPE.DUR_WEEK);
         expected.setWeek(2);
+
+        dd = ParserUtil.parseDurationData("OTHERPARAM=nonsense:P1DT1H0M0S");
+        expected = new DurationData();
+        expected.setPosValue(true);
+        expected.setDurationType(DurationData.DURATION_TYPE.DUR_DATE);
+        expected.setDay(1);
+        expected.setHour(1);
+        expected.setMinute(0);
+        expected.setSecond(0);
+        assertEquals(expected,dd);
     }
 
     public void testParseRecurrenceRule() throws Exception {
+        RecurrenceRuleData rrd = null;
+        RecurrenceRuleData expected = null;
+        assertNull(ParserUtil.parseRecurrenceRule(null));
 
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;COUNT=10");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
+        expected.setCOUNT(10);
+        assertEquals(expected,rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("OTHERPARAM=ostbage:FREQ=DAILY;COUNT=10");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
+        expected.setCOUNT(10);
+        assertEquals(expected,rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;UNTIL=19971224T000000Z");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
+        DateData dd = new DateData();
+        dd.setValue("19971224T000000Z");
+        expected.setUNTIL(dd);
+        assertEquals(expected,rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;INTERVAL=2");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
+        expected.setINTERVAL(2);
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;INTERVAL=10;COUNT=5");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
+        expected.setINTERVAL(10);
+        expected.setCOUNT(5);
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=YEARLY;UNTIL=20000131T140000Z;BYMONTH=1;BYDAY=SU,MO");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.YEARLY);
+        dd = new DateData();
+        dd.setValue("20000131T140000Z");
+        expected.setUNTIL(dd);
+        expected.setBYMONTH(new int[]{1});
+        WeekDayNumData[] wdnd = new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU), new WeekDayNumData(RecurrenceRuleData.WEEKDAY.MO)};
+        expected.setBYDAY(wdnd);
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=WEEKLY;INTERVAL=2;WKST=SU");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.WEEKLY);
+        expected.setINTERVAL(2);
+        expected.setWKST(RecurrenceRuleData.WEEKDAY.SU);
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=WEEKLY;UNTIL=19971007T000000Z;WKST=SU;BYDAY=TU,TH");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.WEEKLY);
+        dd = new DateData();
+        dd.setValue("19971007T000000Z");
+        expected.setUNTIL(dd);
+        expected.setWKST(RecurrenceRuleData.WEEKDAY.SU);
+        expected.setBYDAY(new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU), new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TH)});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;UNTIL=19971224T000000Z;BYDAY=1FR");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.MONTHLY);
+        dd = new DateData();
+        dd.setValue("19971224T000000Z");
+        expected.setUNTIL(dd);
+        WeekDayNumData wdndEx = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.FR);
+        wdndEx.setOccurence(1);
+        expected.setBYDAY(new WeekDayNumData[]{wdndEx});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;INTERVAL=2;COUNT=10;BYDAY=1SU,-1SU");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.MONTHLY);
+        expected.setINTERVAL(2);
+        expected.setCOUNT(10);
+        wdndEx = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU);
+        wdndEx.setOccurence(1);
+        WeekDayNumData wdndEx2 = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU);
+        wdndEx2.setOccurence(-1);
+        expected.setBYDAY(new WeekDayNumData[]{wdndEx, wdndEx2});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;BYMONTHDAY=-3");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.MONTHLY);
+        expected.setBYMONTHDAY(new int[] {-3});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=YEARLY;INTERVAL=3;COUNT=10;BYYEARDAY=1,100,200");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.YEARLY);
+        expected.setINTERVAL(3);
+        expected.setCOUNT(10);
+        expected.setBYYEARDAY(new int[]{1, 100, 200});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.YEARLY);
+        expected.setBYWEEKNO(new int[]{20});
+        expected.setBYDAY(new WeekDayNumData[] {new WeekDayNumData(RecurrenceRuleData.WEEKDAY.MO)});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;COUNT=3;BYDAY=TU;BYSETPOS=3");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.MONTHLY);
+        expected.setCOUNT(3);
+        expected.setBYDAY(new WeekDayNumData[] {new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU)});
+        expected.setBYSETPOS(new int[]{3});
+        assertEquals(expected, rrd);
+
+        rrd = ParserUtil.parseRecurrenceRule("FREQ=MINUTELY;INTERVAL=15;COUNT=6");
+        expected = new RecurrenceRuleData();
+        expected.setFREQ(RecurrenceRuleData.FREQVALUE.MINUTELY);
+        expected.setINTERVAL(15);
+        expected.setCOUNT(6);
+        assertEquals(expected, rrd);
     }
 
     public void testParseWeekDay() throws Exception {

@@ -150,8 +150,49 @@ public class RecurrenceRuleData {
         this.WKST = WKST;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        RecurrenceRuleData that = (RecurrenceRuleData) o;
 
+        if (COUNT != that.COUNT) return false;
+        if (INTERVAL != that.INTERVAL) return false;
+        if (!Arrays.equals(BYDAY, that.BYDAY)) return false;
+        if (!Arrays.equals(BYHOUR, that.BYHOUR)) return false;
+        if (!Arrays.equals(BYMINUTE, that.BYMINUTE)) return false;
+        if (!Arrays.equals(BYMONTH, that.BYMONTH)) return false;
+        if (!Arrays.equals(BYMONTHDAY, that.BYMONTHDAY)) return false;
+        if (!Arrays.equals(BYSECOND, that.BYSECOND)) return false;
+        if (!Arrays.equals(BYSETPOS, that.BYSETPOS)) return false;
+        if (!Arrays.equals(BYWEEKNO, that.BYWEEKNO)) return false;
+        if (!Arrays.equals(BYYEARDAY, that.BYYEARDAY)) return false;
+        if (FREQ != that.FREQ) return false;
+        if (UNTIL != null ? !UNTIL.equals(that.UNTIL) : that.UNTIL != null) return false;
+        if (WKST != that.WKST) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = FREQ != null ? FREQ.hashCode() : 0;
+        result = 31 * result + (UNTIL != null ? UNTIL.hashCode() : 0);
+        result = 31 * result + COUNT;
+        result = 31 * result + INTERVAL;
+        result = 31 * result + (BYSECOND != null ? Arrays.hashCode(BYSECOND) : 0);
+        result = 31 * result + (BYMINUTE != null ? Arrays.hashCode(BYMINUTE) : 0);
+        result = 31 * result + (BYHOUR != null ? Arrays.hashCode(BYHOUR) : 0);
+        result = 31 * result + (BYDAY != null ? Arrays.hashCode(BYDAY) : 0);
+        result = 31 * result + (BYMONTHDAY != null ? Arrays.hashCode(BYMONTHDAY) : 0);
+        result = 31 * result + (BYYEARDAY != null ? Arrays.hashCode(BYYEARDAY) : 0);
+        result = 31 * result + (BYWEEKNO != null ? Arrays.hashCode(BYWEEKNO) : 0);
+        result = 31 * result + (BYMONTH != null ? Arrays.hashCode(BYMONTH) : 0);
+        result = 31 * result + (BYSETPOS != null ? Arrays.hashCode(BYSETPOS) : 0);
+        result = 31 * result + (WKST != null ? WKST.hashCode() : 0);
+        return result;
+    }
 
     @Override
     public String toString() {

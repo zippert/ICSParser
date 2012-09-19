@@ -186,7 +186,10 @@ public class ParserUtil {
         if(durationString != null){
             retVal = new DurationData();
             int currIndex = 0;
-
+            //Remove any "other"-params we don't need.
+            if(durationString.contains(":")){
+                durationString = durationString.substring(durationString.indexOf(":")+1);
+            }
             retVal.setPosValue(!(durationString.charAt(currIndex) == '-'));
             if(durationString.charAt(currIndex) == '+' || durationString.charAt(currIndex) == '-'){
                 currIndex++;
@@ -242,6 +245,9 @@ public class ParserUtil {
     public static RecurrenceRuleData parseRecurrenceRule(String recurString) {
         RecurrenceRuleData retVal = null;
         if(recurString != null){
+            if(recurString.contains(":")){
+                recurString = recurString.substring(recurString.indexOf(":")+1);
+            }
             retVal = new RecurrenceRuleData();
             for(String s: recurString.split(";")){
                 if(s.startsWith("FREQ=")){
