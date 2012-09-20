@@ -818,7 +818,40 @@ public class ParserUtilTest extends TestCase {
     }
 
     public void testParseOrganizer() throws Exception {
+        OrganizerData od, expected;
+        assertNull(ParserUtil.parseOrganizer(null));
 
+        od = ParserUtil.parseOrganizer("CN=John Smith:mailto:jsmith@example.com");
+        expected = new OrganizerData();
+        expected.setCommonName("John Smith");
+        expected.setCalAddress("mailto:jsmith@example.com");
+        assertEquals(expected, od);
+
+        od = ParserUtil.parseOrganizer("CN=JohnSmith;DIR=\"ldap://example.com:6666/o=DC%20Associates,c=US???(cn=John%20Smith)\":mailto:jsmith@example.com");
+        expected = new OrganizerData();
+        expected.setCommonName("JohnSmith");
+        expected.setDirectory("ldap://example.com:6666/o=DC%20Associates,c=US???(cn=John%20Smith)");
+        expected.setCalAddress("mailto:jsmith@example.com");
+        assertEquals(expected, od);
+
+        od = ParserUtil.parseOrganizer("SENT-BY=\"mailto:jane_doe@example.com\":mailto:jsmith@example.com");
+        expected = new OrganizerData();
+        expected.setSentBy("mailto:jane_doe@example.com");
+        expected.setCalAddress("mailto:jsmith@example.com");
+        assertEquals(expected, od);
+
+        od = ParserUtil.parseOrganizer("LANGUAGE=German;SENT-BY=\"mailto:jane_doe@example.com\":mailto:jsmith@example.com");
+        expected = new OrganizerData();
+        expected.setSentBy("mailto:jane_doe@example.com");
+        expected.setCalAddress("mailto:jsmith@example.com");
+        expected.setLanguage("German");
+        assertEquals(expected, od);
+
+        od = ParserUtil.parseOrganizer("CN=John Smith;TEST=Fart:mailto:jsmith@example.com");
+        expected = new OrganizerData();
+        expected.setCommonName("John Smith");
+        expected.setCalAddress("mailto:jsmith@example.com");
+        assertEquals(expected, od);
     }
 
     private void assertEqualArrays(Object[] expected, Object[] actual){

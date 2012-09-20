@@ -401,26 +401,23 @@ public class ParserUtil {
     public static OrganizerData parseOrganizer(String organizerString) {
         //ORGANIZER;CN=JohnSmith;DIR="ldap://example.com:6666/o=DC%20Ass
         //ociates,c=US???(cn=John%20Smith)":mailto:jsmith@example.com
-        OrganizerData organizerData = new OrganizerData();
-        String mailTo = null;
-        if(organizerString.contains(":mailto:")){
-            mailTo = ":mailto:";
-        } else if(organizerString.contains(":MAILTO:")) {
-            mailTo = ":MAILTO:";
-        }
-
-        int indexOfCalAddress = organizerString.lastIndexOf(mailTo);
-        String[] arr = organizerString.substring(0,indexOfCalAddress).split(";");
-        organizerData.setCalAddress(organizerString.split(mailTo)[1]);
-        for(String s: arr){
-            if(s.startsWith("CN")){
-                organizerData.setCommonName(s.substring(s.indexOf("=") + 1));
-            } else if(s.startsWith("DIR")){
-                organizerData.setDirectory(s.substring(s.indexOf("=") + 1));
-            } else if(s.startsWith("SENT-BY")){
-                organizerData.setSentBy(s.substring(s.indexOf("=") + 1));
-            } else if(s.startsWith("LANGUAGE")){
-                organizerData.setLanguage(s.substring(s.indexOf("=")+1));
+        OrganizerData organizerData = null;
+        if(organizerString != null){
+            organizerData = new OrganizerData();
+            int indexOfCalAddress = organizerString.toLowerCase().lastIndexOf(":mailto:");
+            organizerData.setCalAddress(organizerString.substring(indexOfCalAddress + 1));
+            for(String s: organizerString.substring(0,indexOfCalAddress).split(";")){
+                if(s.startsWith("CN=")){
+                    organizerData.setCommonName(s.substring(s.indexOf("=") + 1));
+                } else if(s.startsWith("DIR=")){
+                    String value = s.substring(s.indexOf("=") + 1);
+                    organizerData.setDirectory(value.substring(1,value.length()-1));
+                } else if(s.startsWith("SENT-BY=")){
+                    String value = s.substring(s.indexOf("=") + 1);
+                    organizerData.setSentBy(value.substring(1, value.length()-1));
+                } else if(s.startsWith("LANGUAGE=")){
+                    organizerData.setLanguage(s.substring(s.indexOf("=")+1));
+                }
             }
         }
         return organizerData;
