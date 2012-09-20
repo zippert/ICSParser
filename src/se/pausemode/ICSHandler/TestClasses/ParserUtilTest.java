@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 import se.pausemode.ICSHandler.DataTypes.*;
 import se.pausemode.ICSHandler.Util.ParserUtil;
 
+import java.util.Arrays;
+
 /**
  * Created with IntelliJ IDEA.
  * User: mattiaszi
@@ -662,7 +664,7 @@ public class ParserUtilTest extends TestCase {
         expected = new RecurrenceRuleData();
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.MONTHLY);
         expected.setCOUNT(3);
-        expected.setBYDAY(new WeekDayNumData[] {new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU)});
+        expected.setBYDAY(new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU)});
         expected.setBYSETPOS(new int[]{3});
         assertEquals(expected, rrd);
 
@@ -675,26 +677,151 @@ public class ParserUtilTest extends TestCase {
     }
 
     public void testParseWeekDay() throws Exception {
+        WeekDayNumData[] wd = null;
+        WeekDayNumData[] expected = null;
+        assertNull(ParserUtil.parseWeekDay(null));
 
+        wd = ParserUtil.parseWeekDay(new String[]{"SU"});
+        expected = new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU)};
+        assertEqualArrays(expected, wd);
+
+        wd = ParserUtil.parseWeekDay(new String[]{"-1MO"});
+        WeekDayNumData temp = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.MO);
+        temp.setOccurence(-1);
+        expected = new WeekDayNumData[]{temp};
+        assertEqualArrays(expected, wd);
+
+        wd = ParserUtil.parseWeekDay(new String[]{"1SU","-2SU"});
+        temp = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU);
+        temp.setOccurence(1);
+        WeekDayNumData temp2 = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU);
+        temp2.setOccurence(-2);
+        expected = new WeekDayNumData[]{temp, temp2};
+        assertEqualArrays(expected, wd);
+
+        wd = ParserUtil.parseWeekDay(new String[]{"MO","TU","2WE"});
+        temp = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.WE);
+        temp.setOccurence(2);
+        expected = new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.MO), new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU), temp};
+        assertEqualArrays(expected, wd);
     }
 
     public void testParseStringData() throws Exception {
+        StringData sd = null;
+        StringData expected = null;
 
+        assertNull(ParserUtil.parseStringData(null));
+
+        sd = ParserUtil.parseStringData("Meeting to provide technical review for \"Phoenix\" design.\\nHappy Face Conference Room. Phoenix design team MUST attend this meeting.\\nRSVP to team leader.");
+        expected = new StringData();
+        expected.setString("Meeting to provide technical review for \"Phoenix\" design.\\nHappy Face Conference Room. Phoenix design team MUST attend this meeting.\\nRSVP to team leader.");
+        assertEquals(expected, sd);
+
+        sd = ParserUtil.parseStringData("");
+        expected = new StringData();
+        expected.setString("");
+        assertEquals(expected, sd);
+
+        sd = ParserUtil.parseStringData("ALTREP=\"CID:part3.msg.970415T083000@example.com\":Blaha");
+        expected = new StringData();
+        expected.setString("Blaha");
+        expected.setAltrep("CID:part3.msg.970415T083000@example.com");
+        assertEquals(expected, sd);
+
+        sd = ParserUtil.parseStringData("LANGUAGE=pirate:Argh!");
+        expected = new StringData();
+        expected.setString("Argh!");
+        expected.setLanguage("pirate");
+        assertEquals(expected, sd);
+
+        sd = ParserUtil.parseStringData("WHAAA=Scary:Hello cutypie!");
+        expected = new StringData();
+        expected.setString("Hello cutypie!");
+        assertEquals(expected,sd);
     }
 
     public void testParseDateData() throws Exception {
+        DateData dd, expected;
+        assertNull(ParserUtil.parseDateData(null));
 
+        dd = ParserUtil.parseDateData("19960401T150000Z");
+        expected = new DateData();
+        expected.setValue("19960401T150000Z");
+        assertEquals(expected, dd);
+
+        dd = ParserUtil.parseDateData("VALUE=DATE:19980704");
+        expected = new DateData();
+        expected.setValue("19980704");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE);
+        assertEquals(expected, dd);
+
+        dd = ParserUtil.parseDateData("VALUE=DATE-TIME;TZID=Copenhagen:19960401T150000Z");
+        expected = new DateData();
+        expected.setValue("19960401T150000Z");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE_TIME);
+        expected.setTZID("Copenhagen");
+        assertEquals(expected, dd);
+
+        dd = ParserUtil.parseDateData("VALUE=DATE;FEDTMULE=Alfons:19980704");
+        expected = new DateData();
+        expected.setValue("19980704");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE);
+        assertEquals(expected, dd);
     }
 
     public void testParseRecurrenceID() throws Exception {
+        RecurrenceIDData ridd, expected;
+        assertNull(ParserUtil.parseRecurrenceID(null));
 
+        ridd = ParserUtil.parseRecurrenceID("19960401T150000Z");
+        expected = new RecurrenceIDData();
+        expected.setValue("19960401T150000Z");
+        assertEquals(expected, ridd);
+
+        ridd = ParserUtil.parseRecurrenceID("VALUE=DATE:19980704");
+        expected = new RecurrenceIDData();
+        expected.setValue("19980704");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE);
+        assertEquals(expected, ridd);
+
+        ridd = ParserUtil.parseRecurrenceID("VALUE=DATE-TIME;TZID=Copenhagen:19960401T150000Z");
+        expected = new RecurrenceIDData();
+        expected.setValue("19960401T150000Z");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE_TIME);
+        expected.setTZID("Copenhagen");
+        assertEquals(expected, ridd);
+
+        ridd = ParserUtil.parseRecurrenceID("VALUE=DATE;FEDTMULE=Alfons:19980704");
+        expected = new RecurrenceIDData();
+        expected.setValue("19980704");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE);
+        assertEquals(expected, ridd);
+
+        ridd = ParserUtil.parseRecurrenceID("VALUE=DATE;FEDTMULE=Alfons:19980704");
+        expected = new RecurrenceIDData();
+        expected.setValue("19980704");
+        expected.setValue_type(DateData.VALUE_TYPE.DATE);
+        assertEquals(expected, ridd);
     }
 
     public void testParseGeo() throws Exception {
+        PositionData pd, expected;
+        assertNull(ParserUtil.parseGeo(null));
 
+        pd = ParserUtil.parseGeo("37.386013;-122.082932");
+        expected = new PositionData(37.386013f,-122.082932f);
+        assertEquals(expected,pd);
+
+        pd = ParserUtil.parseGeo("HELLO=banana:37.386013;-122.082932");
+        expected = new PositionData(37.386013f,-122.082932f);
+        assertEquals(expected,pd);
     }
 
     public void testParseOrganizer() throws Exception {
 
+    }
+
+    private void assertEqualArrays(Object[] expected, Object[] actual){
+        assertEquals(Arrays.asList(expected),Arrays.asList(actual));
     }
 }

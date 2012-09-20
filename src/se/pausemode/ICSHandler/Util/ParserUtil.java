@@ -349,9 +349,9 @@ public class ParserUtil {
             if(indexOfColon > 0){
                 retVal.setValue(dateDataString.substring(indexOfColon+1));
                 for(String s: dateDataString.substring(0,indexOfColon).split(";")){
-                    if(s.startsWith("VALUE")){
+                    if(s.startsWith("VALUE=")){
                         retVal.setValue_type(RecurrenceIDData.VALUE_TYPE.getEnum(s.split("=")[1]));
-                    } else if(s.startsWith("TZID")){
+                    } else if(s.startsWith("TZID=")){
                         retVal.setTZID(s.split("=")[1]);
                     }
                 }
@@ -363,24 +363,37 @@ public class ParserUtil {
     }
 
     public static RecurrenceIDData parseRecurrenceID(String recurrenceString) {
-        RecurrenceIDData recurrenceIDData = null;
+        RecurrenceIDData retVal = null;
         if(recurrenceString != null){
-            recurrenceIDData = (RecurrenceIDData) parseDateData(recurrenceString);
+            retVal = new RecurrenceIDData();
             int indexOfColon = recurrenceString.lastIndexOf(":");
-            for(String s: recurrenceString.substring(0,indexOfColon).split(";")){
-                if(s.startsWith("RANGE")){
-                    recurrenceIDData.setRange(RecurrenceIDData.RANGE.valueOf(s.split("=")[1]));
+            if(indexOfColon > 0){
+                retVal.setValue(recurrenceString.substring(indexOfColon+1));
+                for(String s: recurrenceString.substring(0,indexOfColon).split(";")){
+                    if(s.startsWith("VALUE=")){
+                        retVal.setValue_type(RecurrenceIDData.VALUE_TYPE.getEnum(s.split("=")[1]));
+                    } else if(s.startsWith("TZID=")){
+                        retVal.setTZID(s.split("=")[1]);
+                    } else if(s.startsWith("RANGE=")){
+                        retVal.setRange(RecurrenceIDData.RANGE.valueOf(s.split("=")[1]));
+                    }
                 }
+            } else {
+                retVal.setValue(recurrenceString);
             }
         }
-        return recurrenceIDData;
+        return retVal;
     }
 
     public static PositionData parseGeo(String geoString){
         PositionData pos = null;
         if(geoString != null){
+            if(geoString.contains(":")){
+                geoString = geoString.substring(geoString.indexOf(":") + 1);
+            }
             String[] geo = geoString.split(";");
             pos = new PositionData(Float.parseFloat(geo[0]),Float.parseFloat(geo[1]));
+
         }
         return pos;
     }
