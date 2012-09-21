@@ -2,19 +2,21 @@ package se.pausemode.ICSHandler;
 
 import se.pausemode.ICSHandler.Util.ParserUtil;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class CalendarHandler {
 
     private HashMap<String, String> map;
 
+    public CalendarHandler(InputStream inputStream){
+
+    }
+
     public CalendarHandler(File f){
-        ArrayList<String> list = loadFile(f);
+        ArrayList<String> list = load(f);
         ArrayList<String> foldedList = unfold(list);
         mapify(filterList(foldedList, "VEVENT"));
     }
@@ -57,7 +59,19 @@ public class CalendarHandler {
         }
     }
 
-    private ArrayList<String> loadFile(File f){
+    private ArrayList<String> load(InputStream inputStream){
+        ArrayList<String> source = null;
+        if(inputStream != null){
+            source = new ArrayList<String>();
+            Scanner scanner = new Scanner(inputStream);
+            while(scanner.hasNextLine()){
+                source.add(scanner.nextLine());
+            }
+        }
+        return source;
+    }
+
+    private ArrayList<String> load(File f){
         ArrayList<String> source = new ArrayList<String>();
         try{
             BufferedReader bfr = new BufferedReader(new FileReader(f));
