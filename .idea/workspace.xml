@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="229cc0bd-c316-4353-adc5-c8d896906f9d" name="Default" comment="Added ATTENDEE and CATEGORIES data">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" afterPath="$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java" />
     </list>
     <ignored path="ICSParser.iws" />
@@ -84,7 +83,7 @@
       <file leaf-file-name="CalendarHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="47" selection-start="2140" selection-end="2140" vertical-scroll-proportion="0.35373318">
+            <state line="14" column="49" selection-start="358" selection-end="358" vertical-scroll-proportion="0.1872705">
               <folding />
             </state>
           </provider>
@@ -763,7 +762,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/se/pausemode/ICSHandler/CalendarHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="47" selection-start="2140" selection-end="2140" vertical-scroll-proportion="0.35373318">
+        <state line="14" column="49" selection-start="358" selection-end="358" vertical-scroll-proportion="0.1872705">
           <folding />
         </state>
       </provider>

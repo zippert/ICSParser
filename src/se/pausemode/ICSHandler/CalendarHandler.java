@@ -12,7 +12,9 @@ public class CalendarHandler {
     private HashMap<String, String> map;
 
     public CalendarHandler(InputStream inputStream){
-
+        ArrayList<String> list = load(inputStream);
+        ArrayList<String> foldedList = unfold(list);
+        mapify(filterList(foldedList, "VEVENT"));
     }
 
     public CalendarHandler(File f){
