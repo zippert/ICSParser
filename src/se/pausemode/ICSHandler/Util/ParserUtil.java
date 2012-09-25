@@ -119,7 +119,12 @@ public class ParserUtil {
                     retVal.setSENT_BY(parsePeopleData(s.substring(s.indexOf("=") +1)));
                 } else if(s.startsWith("CN=")){
                     String value = s.substring(s.indexOf("=")+1);
-                    retVal.setCN(value.substring(1,value.length()-1));
+                    if(value.charAt(0) == '\"' && value.charAt(value.length()-1) == '\"'){
+                        retVal.setCN(value.substring(1,value.length()-1));
+                    } else {
+                        retVal.setCN(value);
+                    }
+
                 } else if(s.startsWith("DIR=")){
                     retVal.setDIR(s.substring(s.indexOf("=")+1).replace("\"",""));
                 } else if(s.startsWith("LANGUAGE=")){

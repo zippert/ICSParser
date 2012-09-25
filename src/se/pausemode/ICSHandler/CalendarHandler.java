@@ -1,5 +1,6 @@
 package se.pausemode.ICSHandler;
 
+import se.pausemode.ICSHandler.DataTypes.AttendeeData;
 import se.pausemode.ICSHandler.Util.ParserUtil;
 
 import java.io.*;
@@ -57,6 +58,10 @@ public class CalendarHandler {
             delim = !s.contains(";") ? s.indexOf(":") : Math.min(s.indexOf(";"), s.indexOf(":"));
             key = s.substring(0,delim);
             value = s.substring(delim+1);
+            int index = 1;
+            while(map.containsKey(key)){
+                key = key + "_" + index++;
+            }
             map.put(key, value);
         }
     }
@@ -164,7 +169,14 @@ public class CalendarHandler {
             //ATTENDEE;ROLE_TYPES=REQ-PARTICIPANT;DELEGATED-FROM="mailto:bob@
             //example.com";PARTSTAT=ACCEPTED;CN=Jane Doe:mailto:jdoe@
             //example.com
-            retVal.setATTENDEE(ParserUtil.parseAttendeeData(map.get("ATTENDEE")));
+            ArrayList<AttendeeData> attendees = new ArrayList<AttendeeData>();
+            int index = 1;
+            String value = map.get("ATTENDEE");
+            while(value != null){
+                attendees.add(ParserUtil.parseAttendeeData(value));
+                value = map.get("ATTENDEE_" + index++);
+            }
+            retVal.setATTENDEES(attendees.toArray(new AttendeeData[attendees.size()]));
             //CATEGORIES:APPOINTMENT,EDUCATION
             retVal.setCATEGORIES(ParserUtil.parseCategoriesData(map.get("CATEGORIES")));
             //COMMENT:Hej hopp vad kul!

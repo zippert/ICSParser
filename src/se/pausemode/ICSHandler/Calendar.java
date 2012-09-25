@@ -2,6 +2,8 @@ package se.pausemode.ICSHandler;
 
 import se.pausemode.ICSHandler.DataTypes.*;
 
+import java.util.Arrays;
+
 /**
  * Class definined acording to RCF5545 (VEVENT only)
  */
@@ -33,7 +35,7 @@ public class Calendar {
 
     /** Optional **/
     private AttachData ATTACH;
-    private AttendeeData ATTENDEE;
+    private AttendeeData[] ATTENDEES;
     private StringData CATEGORIES;
     private StringData COMMENT;
     private StringData CONTACT;
@@ -78,7 +80,7 @@ public class Calendar {
                 ", \nDTEND=" + DTEND +
                 ", \nDURATION=" + DURATION +
                 ", \nATTACH=" + ATTACH +
-                ", \nATTENDEE=" + ATTENDEE +
+                ", \nATTENDEES=" + Arrays.toString(ATTENDEES) +
                 ", \nCATEGORIES=" + CATEGORIES +
                 ", \nCOMMENT=" + COMMENT +
                 ", \nCONTACT=" + CONTACT +
@@ -254,12 +256,12 @@ public class Calendar {
         this.ATTACH = ATTACH;
     }
 
-    public AttendeeData getATTENDEE() {
-        return ATTENDEE;
+    public AttendeeData[] getATTENDEES() {
+        return ATTENDEES;
     }
 
-    public void setATTENDEE(AttendeeData ATTENDEE) {
-        this.ATTENDEE = ATTENDEE;
+    public void setATTENDEES(AttendeeData[] ATTENDEES) {
+        this.ATTENDEES = ATTENDEES;
     }
 
     public StringData getCATEGORIES() {

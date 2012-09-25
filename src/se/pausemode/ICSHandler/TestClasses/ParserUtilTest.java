@@ -374,6 +374,9 @@ public class ParserUtilTest extends TestCase {
         ad = ParserUtil.parseAttendeeData("CN=\"John \"Tomatohead\" Smith\":mailto:jsmith@example.com");
         assertEquals("John \"Tomatohead\" Smith", ad.getCN());
 
+        ad = ParserUtil.parseAttendeeData("CN=Mr. No-quotes:mailto:jsmith@example.com");
+        assertEquals("Mr. No-quotes", ad.getCN());
+
         ////
 
         ad = ParserUtil.parseAttendeeData("DIR=\"ldap://example.com:6666/o=ABC%20Industries,c=US???(cn=Jim%20Dolittle)\":mailto:jimdo@example.com");
