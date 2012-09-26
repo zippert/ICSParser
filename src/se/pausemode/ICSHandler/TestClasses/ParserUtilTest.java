@@ -562,12 +562,14 @@ public class ParserUtilTest extends TestCase {
         expected = new RecurrenceRuleData();
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
         expected.setCOUNT(10);
+        expected.setCompleteString("FREQ=DAILY;COUNT=10");
         assertEquals(expected,rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("OTHERPARAM=ostbage:FREQ=DAILY;COUNT=10");
         expected = new RecurrenceRuleData();
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
         expected.setCOUNT(10);
+        expected.setCompleteString("FREQ=DAILY;COUNT=10");
         assertEquals(expected,rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;UNTIL=19971224T000000Z");
@@ -576,12 +578,14 @@ public class ParserUtilTest extends TestCase {
         DateData dd = new DateData();
         dd.setValue("19971224T000000Z");
         expected.setUNTIL(dd);
+        expected.setCompleteString("FREQ=DAILY;UNTIL=19971224T000000Z");
         assertEquals(expected,rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;INTERVAL=2");
         expected = new RecurrenceRuleData();
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
         expected.setINTERVAL(2);
+        expected.setCompleteString("FREQ=DAILY;INTERVAL=2");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=DAILY;INTERVAL=10;COUNT=5");
@@ -589,6 +593,7 @@ public class ParserUtilTest extends TestCase {
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.DAILY);
         expected.setINTERVAL(10);
         expected.setCOUNT(5);
+        expected.setCompleteString("FREQ=DAILY;INTERVAL=10;COUNT=5");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=YEARLY;UNTIL=20000131T140000Z;BYMONTH=1;BYDAY=SU,MO");
@@ -600,6 +605,7 @@ public class ParserUtilTest extends TestCase {
         expected.setBYMONTH(new int[]{1});
         WeekDayNumData[] wdnd = new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU), new WeekDayNumData(RecurrenceRuleData.WEEKDAY.MO)};
         expected.setBYDAY(wdnd);
+        expected.setCompleteString("FREQ=YEARLY;UNTIL=20000131T140000Z;BYMONTH=1;BYDAY=SU,MO");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=WEEKLY;INTERVAL=2;WKST=SU");
@@ -607,6 +613,7 @@ public class ParserUtilTest extends TestCase {
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.WEEKLY);
         expected.setINTERVAL(2);
         expected.setWKST(RecurrenceRuleData.WEEKDAY.SU);
+        expected.setCompleteString("FREQ=WEEKLY;INTERVAL=2;WKST=SU");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=WEEKLY;UNTIL=19971007T000000Z;WKST=SU;BYDAY=TU,TH");
@@ -617,6 +624,7 @@ public class ParserUtilTest extends TestCase {
         expected.setUNTIL(dd);
         expected.setWKST(RecurrenceRuleData.WEEKDAY.SU);
         expected.setBYDAY(new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU), new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TH)});
+        expected.setCompleteString("FREQ=WEEKLY;UNTIL=19971007T000000Z;WKST=SU;BYDAY=TU,TH");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;UNTIL=19971224T000000Z;BYDAY=1FR");
@@ -628,6 +636,7 @@ public class ParserUtilTest extends TestCase {
         WeekDayNumData wdndEx = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.FR);
         wdndEx.setOccurence(1);
         expected.setBYDAY(new WeekDayNumData[]{wdndEx});
+        expected.setCompleteString("FREQ=MONTHLY;UNTIL=19971224T000000Z;BYDAY=1FR");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;INTERVAL=2;COUNT=10;BYDAY=1SU,-1SU");
@@ -640,12 +649,14 @@ public class ParserUtilTest extends TestCase {
         WeekDayNumData wdndEx2 = new WeekDayNumData(RecurrenceRuleData.WEEKDAY.SU);
         wdndEx2.setOccurence(-1);
         expected.setBYDAY(new WeekDayNumData[]{wdndEx, wdndEx2});
+        expected.setCompleteString("FREQ=MONTHLY;INTERVAL=2;COUNT=10;BYDAY=1SU,-1SU");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;BYMONTHDAY=-3");
         expected = new RecurrenceRuleData();
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.MONTHLY);
         expected.setBYMONTHDAY(new int[] {-3});
+        expected.setCompleteString("FREQ=MONTHLY;BYMONTHDAY=-3");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=YEARLY;INTERVAL=3;COUNT=10;BYYEARDAY=1,100,200");
@@ -654,6 +665,7 @@ public class ParserUtilTest extends TestCase {
         expected.setINTERVAL(3);
         expected.setCOUNT(10);
         expected.setBYYEARDAY(new int[]{1, 100, 200});
+        expected.setCompleteString("FREQ=YEARLY;INTERVAL=3;COUNT=10;BYYEARDAY=1,100,200");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO");
@@ -661,6 +673,7 @@ public class ParserUtilTest extends TestCase {
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.YEARLY);
         expected.setBYWEEKNO(new int[]{20});
         expected.setBYDAY(new WeekDayNumData[] {new WeekDayNumData(RecurrenceRuleData.WEEKDAY.MO)});
+        expected.setCompleteString("FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=MONTHLY;COUNT=3;BYDAY=TU;BYSETPOS=3");
@@ -669,6 +682,7 @@ public class ParserUtilTest extends TestCase {
         expected.setCOUNT(3);
         expected.setBYDAY(new WeekDayNumData[]{new WeekDayNumData(RecurrenceRuleData.WEEKDAY.TU)});
         expected.setBYSETPOS(new int[]{3});
+        expected.setCompleteString("FREQ=MONTHLY;COUNT=3;BYDAY=TU;BYSETPOS=3");
         assertEquals(expected, rrd);
 
         rrd = ParserUtil.parseRecurrenceRule("FREQ=MINUTELY;INTERVAL=15;COUNT=6");
@@ -676,6 +690,7 @@ public class ParserUtilTest extends TestCase {
         expected.setFREQ(RecurrenceRuleData.FREQVALUE.MINUTELY);
         expected.setINTERVAL(15);
         expected.setCOUNT(6);
+        expected.setCompleteString("FREQ=MINUTELY;INTERVAL=15;COUNT=6");
         assertEquals(expected, rrd);
     }
 

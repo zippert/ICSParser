@@ -3,6 +3,8 @@ package se.pausemode.ICSHandler.DataTypes;
 import java.util.Arrays;
 
 public class RecurrenceRuleData {
+
+
     public enum FREQVALUE{
         SECONDLY,
         MINUTELY,
@@ -37,6 +39,8 @@ public class RecurrenceRuleData {
     private int[] BYMONTH;
     private int[] BYSETPOS;
     private WEEKDAY WKST;
+
+    private String completeString;
 
     public FREQVALUE getFREQ() {
         return FREQ;
@@ -150,6 +154,14 @@ public class RecurrenceRuleData {
         this.WKST = WKST;
     }
 
+    public String getCompleteString() {
+        return completeString;
+    }
+
+    public void setCompleteString(String completeString) {
+        this.completeString = completeString;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -171,6 +183,8 @@ public class RecurrenceRuleData {
         if (FREQ != that.FREQ) return false;
         if (UNTIL != null ? !UNTIL.equals(that.UNTIL) : that.UNTIL != null) return false;
         if (WKST != that.WKST) return false;
+        if (completeString != null ? !completeString.equals(that.completeString) : that.completeString != null)
+            return false;
 
         return true;
     }
@@ -191,6 +205,7 @@ public class RecurrenceRuleData {
         result = 31 * result + (BYMONTH != null ? Arrays.hashCode(BYMONTH) : 0);
         result = 31 * result + (BYSETPOS != null ? Arrays.hashCode(BYSETPOS) : 0);
         result = 31 * result + (WKST != null ? WKST.hashCode() : 0);
+        result = 31 * result + (completeString != null ? completeString.hashCode() : 0);
         return result;
     }
 
@@ -211,7 +226,7 @@ public class RecurrenceRuleData {
                 ", BYMONTH=" + BYMONTH +
                 ", BYSETPOS=" + BYSETPOS +
                 ", WKST=" + WKST +
+                ", completeString='" + completeString + '\'' +
                 '}';
     }
-
 }

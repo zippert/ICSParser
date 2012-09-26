@@ -254,6 +254,7 @@ public class ParserUtil {
                 recurString = recurString.substring(recurString.indexOf(":")+1);
             }
             retVal = new RecurrenceRuleData();
+            retVal.setCompleteString(recurString);
             for(String s: recurString.split(";")){
                 if(s.startsWith("FREQ=")){
                     retVal.setFREQ(RecurrenceRuleData.FREQVALUE.valueOf(s.substring(s.indexOf("=")+1)));
