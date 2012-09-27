@@ -107,6 +107,8 @@ public class CalendarHandler {
             /** Mandatory **/
             //DTSTAMP:19971210T080000Z
             retVal.setDTSTAMP(map.get("DTSTAMP"));
+            //UID:19960401T080045Z-4000F192713-0052@example.com
+            retVal.setUID(ParserUtil.parseUID(map.get("UID")));
             //DTSTART:20120829T165000Z
             retVal.setDTSTART(ParserUtil.parseDateData(map.get("DTSTART")));
 

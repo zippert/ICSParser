@@ -428,4 +428,12 @@ public class ParserUtil {
         }
         return organizerData;
     }
+
+    public static String parseUID(String uidString) {
+        String retVal = null;
+        if(uidString != null){
+            retVal = uidString.contains(":") ? uidString.substring(uidString.indexOf(":") + 1) : uidString;
+        }
+        return retVal;  //To change body of created methods use File | Settings | File Templates.
+    }
 }

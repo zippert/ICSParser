@@ -11,6 +11,7 @@ public class Calendar {
 
     /** Mandatory **/
     private String DTSTAMP;
+    private String UID;
     private DateData DTSTART;
     /** Optional **/
     private String CLASS;
@@ -44,6 +45,14 @@ public class Calendar {
     private RelatedToData RELATEDTO;
     private StringData RESOURCES;
     private DateData RDATE;
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
 
 
     public enum EventStatus{

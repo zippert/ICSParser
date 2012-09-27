@@ -872,6 +872,18 @@ public class ParserUtilTest extends TestCase {
         assertEquals(expected, od);
     }
 
+    public void testParseUID() throws Exception {
+        assertNull(ParserUtil.parseUID(null));
+
+        String expected = "19960401T080045Z-4000F192713-0052@example.com";
+        String uid = ParserUtil.parseUID("19960401T080045Z-4000F192713-0052@example.com");
+        assertEquals(expected,uid);
+
+        expected = "hellokitty6969";
+        uid = ParserUtil.parseUID("PARAM=ost;PARAM2=kex:hellokitty6969");
+        assertEquals(expected,uid);
+    }
+
     private void assertEqualArrays(Object[] expected, Object[] actual){
         assertEquals(Arrays.asList(expected),Arrays.asList(actual));
     }
