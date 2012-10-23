@@ -730,9 +730,15 @@ public class ParserUtilTest extends TestCase {
 
         assertNull(ParserUtil.parseStringData(null));
 
+        sd = ParserUtil.parseStringData("LANGUAGE=pirate:Argh!");
+        expected = new StringData();
+        expected.setString("Argh!");
+        expected.setLanguage("pirate");
+        assertEquals(expected, sd);
+
         sd = ParserUtil.parseStringData("Meeting to provide technical review for \"Phoenix\" design.\\nHappy Face Conference Room. Phoenix design team MUST attend this meeting.\\nRSVP to team leader.");
         expected = new StringData();
-        expected.setString("Meeting to provide technical review for \"Phoenix\" design.\\nHappy Face Conference Room. Phoenix design team MUST attend this meeting.\\nRSVP to team leader.");
+        expected.setString("Meeting to provide technical review for \"Phoenix\" design.\nHappy Face Conference Room. Phoenix design team MUST attend this meeting.\nRSVP to team leader.");
         assertEquals(expected, sd);
 
         sd = ParserUtil.parseStringData("");
@@ -746,16 +752,18 @@ public class ParserUtilTest extends TestCase {
         expected.setAltrep("CID:part3.msg.970415T083000@example.com");
         assertEquals(expected, sd);
 
-        sd = ParserUtil.parseStringData("LANGUAGE=pirate:Argh!");
-        expected = new StringData();
-        expected.setString("Argh!");
-        expected.setLanguage("pirate");
-        assertEquals(expected, sd);
 
-        sd = ParserUtil.parseStringData("WHAAA=Scary:Hello cutypie!");
+
+        sd = ParserUtil.parseStringData("X-7=Scary:Hello cutypie!");
         expected = new StringData();
         expected.setString("Hello cutypie!");
         assertEquals(expected,sd);
+
+        sd = ParserUtil.parseStringData("LANGUAGE=sv-SE:När: den 6 december 2012 17:30-23:00 (GMT+01:00) Amsterdam\\, Berlin\\, Bern\\, Rome\\, Stockholm\\, Vienna.\\nVar: Turbinhallen Öresundsverket\\n\\nObs! GMT-förskjutningen ovan återspeglar inte sommartidskorrigeringar.\\n\\n*~*~*~*~*~*~*~*~*~*\\n\\n\\n\\n");
+        expected = new StringData();
+        expected.setLanguage("sv-SE");
+        expected.setString("När: den 6 december 2012 17:30-23:00 (GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna.\nVar: Turbinhallen Öresundsverket\n\nObs! GMT-förskjutningen ovan återspeglar inte sommartidskorrigeringar.\n\n*~*~*~*~*~*~*~*~*~*\n\n\n\n");
+        assertEquals(expected, sd);
     }
 
     public void testParseDateData() throws Exception {

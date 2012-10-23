@@ -327,25 +327,54 @@ public class ParserUtil {
 
     public static StringData parseStringData(String stringData) {
         StringData retVal = null;
+        int valueSeparator = 0;
+        final String LANGUAGEKEY = "LANGUAGE=";
+        final String ALTREPKEY = "ALTREP=";
+        final String XNAMEDELIM = "X-";
         if(stringData != null){
             retVal = new StringData();
-            int valueSeparator = stringData.lastIndexOf(":");
-            if(valueSeparator > -1){
-                retVal.setString(stringData.substring(valueSeparator+1));
-                for(String s:stringData.substring(0,valueSeparator).split(";")){
-                    if(s.startsWith("LANGUAGE=")){
-                        retVal.setLanguage(s.substring(s.indexOf("=")+1));
-                    } else if(s.startsWith("ALTREP=")){
-                        retVal.setAltrep(s.substring(s.indexOf("=")+1).replace("\"",""));
-                    }
+            if(stringData.contains(LANGUAGEKEY)){
+                int startIndex = stringData.indexOf(LANGUAGEKEY);
+                int indexOfColon = stringData.indexOf(":", startIndex) == -1 ? Integer.MAX_VALUE : stringData.indexOf(":", startIndex);
+                int indexOfSemicolon = stringData.indexOf(";", startIndex) == -1 ? Integer.MAX_VALUE : stringData.indexOf(";", startIndex);
+                int endIndex = Math.min(indexOfColon, indexOfSemicolon);
+                retVal.setLanguage(stringData.substring(startIndex + LANGUAGEKEY.length(),endIndex));
+                if(stringData.charAt(endIndex) == ':'){
+                    valueSeparator = Math.max(endIndex, valueSeparator);
                 }
-            } else {
-                retVal.setString(stringData);
             }
-
+            if(stringData.contains(ALTREPKEY)){
+                int startIndex = stringData.indexOf(ALTREPKEY);
+                int indexOfColon = stringData.indexOf("\":", startIndex) == -1 ? Integer.MAX_VALUE : stringData.indexOf("\":", startIndex);
+                int indexOfSemicolon = stringData.indexOf("\";", startIndex) == -1 ? Integer.MAX_VALUE : stringData.indexOf("\";", startIndex);
+                int endIndex = Math.min(indexOfColon, indexOfSemicolon);
+                retVal.setAltrep(stringData.substring(startIndex + ALTREPKEY.length()+1, endIndex));
+                if(stringData.substring(endIndex,endIndex+2).equals("\":")){
+                    valueSeparator = Math.max(endIndex + 1, valueSeparator);
+                }
+            }
+            if(stringData.contains(XNAMEDELIM)){
+                //A bit sloppy filtering, but to avoid reg-exp this is good enough.
+                int startIndex = stringData.lastIndexOf(XNAMEDELIM);
+                int indexOfColon = stringData.indexOf(":", startIndex) == -1 ? Integer.MAX_VALUE : stringData.indexOf(":", startIndex);
+                int indexOfSemicolon = stringData.indexOf(";", startIndex) == -1 ? Integer.MAX_VALUE : stringData.indexOf(";", startIndex);
+                int endIndex = Math.min(indexOfColon, indexOfSemicolon);
+                if(stringData.charAt(endIndex) == ':'){
+                    valueSeparator = Math.max(endIndex, valueSeparator);
+                }
+            }
+            if(stringData.equals("")){
+                retVal.setString("");
+            } else {
+                int padding = stringData.charAt(valueSeparator) == ':' ? 1 : 0;
+                String valueString = stringData.substring(valueSeparator + padding);
+                valueString = valueString.replace("\\n", "\n").replace("\\", "");
+                retVal.setString(valueString);
+            }
         }
         return retVal;
     }
+
 
     public static DateData parseDateData(String dateDataString){
         DateData retVal = null;
